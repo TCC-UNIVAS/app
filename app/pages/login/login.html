@@ -1,0 +1,26 @@
+<ion-content padding>
+  <form (ngSubmit)="doLogin(user)">
+    <div style="width: 300px; height: 273px;"></div>
+    <ion-list>
+      <ion-item>
+        <ion-label>Email</ion-label>
+        <ion-input [value]="user.email" (input)="checkEmail($event)" [class.invalid]="emailInvalid"
+          ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" name="email" type="text" required></ion-input>
+      </ion-item>
+      <ion-item [hidden]="!emailInvalid || noEmail">
+        <p>Por favor informe um email válido!</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Senha</ion-label>
+        <ion-input [value]="user.password" (input)="checkPassword($event)" [class.invalid]="passwordInvalid" 
+            name="password" minlenght="4" type="password" required></ion-input>
+      </ion-item>
+      <ion-item [hidden]="!passwordInvalid || noPass">
+        <p>Senha inválida!</p>
+      </ion-item>
+    </ion-list>
+    <input [disabled]="passwordInvalid || emailInvalid" id="btn_login" type="submit" class="button button-royal button-large button-block" value="ENTRAR" />
+    <a href="#" (click)="registerUser()" id="btn_register" class="button button-royal  button-block button-clear">Quero me cadastrar</a>
+  </form>
+</ion-content>
