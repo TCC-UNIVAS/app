@@ -48,7 +48,7 @@ export class LoginPage {
   checkPassword(event) {
     this.noPass = false;
     this.user.password = event.target.value;
-    if (event.target.value.length < 4) {
+    if (event.target.value.length < 3) {
       this.passwordInvalid = true;
     } else {
       this.passwordInvalid = false;

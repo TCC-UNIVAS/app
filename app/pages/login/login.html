@@ -14,7 +14,7 @@
       <ion-item>
         <ion-label>Senha</ion-label>
         <ion-input [value]="user.password" (input)="checkPassword($event)" [class.invalid]="passwordInvalid" 
-            name="password" minlenght="4" type="password" required></ion-input>
+            name="password" minlenght="3" type="password" required></ion-input>
       </ion-item>
       <ion-item [hidden]="!passwordInvalid || noPass">
         <p>Senha inválida!</p>

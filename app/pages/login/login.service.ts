@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import { User } from './login.model';
+import { Config } from '../../config/config';
 
 @Injectable()
 export class LoginService {
-    createUser() {}
-    
-    getUser(email, password) {
-        //TODO: recuperar user do serviço
-        //return '{"name":"Daniela","email":"danielamaradms@gmail.com","password":"1234","latitude":"=22.123456","longitude":"-45.123456","sign_date":"2016-08-29 12:00:00"}';
-        return null;
-    }
+    private URL: string;
 
-    updateUser() {}
+    constructor(private http: Http) {
+        this.http = http;
+        this.URL = Config.URL;
+    }
 
     doLogin(email, password) {
         let user = this.getUser(email, password);
@@ -20,6 +20,20 @@ export class LoginService {
         } else {
             return ['Não é possível fazer login!', false];
         }
+    }
+
+    getUser(email, password): Promise<User> {
+        var user = {
+            email: email,
+            password: password
+        };
+        var url = this.URL + '/user/auth';
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(url, user, { headers: headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
     }
 
     saveUserInLocalstorage(user) {
@@ -37,5 +51,8 @@ export class LoginService {
         }
     }
 
-    updateUserInLocalstorage() {}
+    handleError(error: any) {
+        console.info('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
 }
