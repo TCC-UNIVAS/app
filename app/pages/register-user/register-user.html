@@ -9,26 +9,30 @@
         <ion-list>
             <ion-item>
               <ion-label>Nome:</ion-label>
-              <ion-input [(ngModel)]="user.name" type="text" name="name"></ion-input>
+              <ion-input [(ngModel)]="user.name" type="text" name="name" maxlenght="50" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Email:</ion-label>
-              <ion-input [(ngModel)]="user.email" type="email" name="email"></ion-input>
+              <ion-input [(ngModel)]="user.email" type="email" name="email" (input)="checkEmail($event)" 
+                [class.invalid]="emailInvalid" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Minha casa:</ion-label>
-              <ion-input [(ngModel)]="user.location" type="text" name="location"></ion-input>
+              <ion-input [(ngModel)]="user.location" type="text" name="location" required></ion-input>
               <ion-icon name="pin" item-right></ion-icon>
             </ion-item>
             <ion-item>
               <ion-label>Senha:</ion-label>
-              <ion-input [(ngModel)]="user.password" type="password" name="password"></ion-input>
+              <ion-input [(ngModel)]="user.password" type="password" name="password" (input)="checkPassword($event)" 
+                [class.invalid]="passwordInvalid" required></ion-input>
             </ion-item>
             <ion-item>
               <ion-label>Confirmação da senha:</ion-label>
-              <ion-input [(ngModel)]="user.confirm_password" type="password" name="confirm_password"></ion-input>
+              <ion-input [(ngModel)]="user.confirm_password" type="password" name="confirm_password" 
+                (input)="checkPasswordEquals($event,user)" [class.invalid]="passwordInvalid" required></ion-input>
             </ion-item>
         </ion-list>
-        <input type="submit" class="button button-royal button-large button-block" value="Criar conta"/>
+        <input [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Criar conta" 
+          class="button button-royal button-large button-block"/>
     </form>
 </ion-content>

@@ -14,7 +14,6 @@ export class RegisterUser {
     }
 
     createUser(user) {
-        debugger;
         var url = this.URL + '/user';
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -22,6 +21,20 @@ export class RegisterUser {
             .toPromise()
             .then(response => response.json())
             .catch(this.handleError);
+    }
+
+    saveUserInLocalstorage(user) {
+        var userJson = JSON.stringify(user);
+        console.log(userJson);
+        window.localStorage.setItem('User', userJson);
+    }
+
+    clearLocalStorage() {
+        window.localStorage.clear();
+    }
+
+    removeKeyInLocalstorage(key) {
+        window.localStorage.removeItem(key);
     }
 
     handleError(error: any) {
