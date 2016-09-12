@@ -18,7 +18,7 @@
             </ion-item>
             <ion-item>
               <ion-label>Minha casa:</ion-label>
-              <ion-input [(ngModel)]="user.location" type="text" name="location" required></ion-input>
+              <ion-input [(ngModel)]="user.location" on-tap="openMap()" type="text" name="location" required></ion-input>
               <ion-icon name="pin" item-right></ion-icon>
             </ion-item>
             <ion-item>

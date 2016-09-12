@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { Geolocation } from 'ionic-native';
+import 'rxjs/Rx';
 
 declare var google: any;
 
@@ -29,13 +30,14 @@ export class MapsPage {
         this.positionClicked;
     }
 
-    // ngOnInit() {
-    //     this.presentLoading = this.param.get('loading');
-    //     this.loading = this.param.get('dismiss');
-    // }
+    ngOnInit() {
+        this.presentLoading = this.param.get('loading');
+        this.loading = this.param.get('dismiss');
+    }
 
     savePosition() {
         if (this.marker != undefined) {
+            debugger;
             let obj = { address: this.marker, latlng: this.positionClicked };
             this.param.get('resolve')(JSON.stringify(obj));
             this.nav.pop();
@@ -90,7 +92,7 @@ export class MapsPage {
                     if (results[results.length - 3].address_components[0].long_name != 'Pouso Alegre') {
                        let alert = that.alertCtrl.create({
                             title: 'Atenção!',
-                            subTitle: 'O endereço informado não corresponde à cidade de Pouso Alegre. Por favor informe uma localidade  válida!',
+                            subTitle: 'O endereço informado não corresponde à cidade de Pouso Alegre. Por favor, informe uma localidade  válida!',
                             buttons: [
                                 {
                                     text: 'Ok',

@@ -3,7 +3,6 @@ import { NavController, AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { LoginService } from './login.service';
 import { RegisterUserPage } from '../register-user/register-user';
-import { MapsPage } from '../maps/maps';
 
 @Component({
   templateUrl: 'build/pages/login/login.html',
@@ -86,10 +85,5 @@ export class LoginPage {
 
   registerUser() {
     this.navCtrl.push(RegisterUserPage);
-  }
-
-  //*****************MAP**************
-   openMap() {
-    this.navCtrl.push(MapsPage);
   }
 }

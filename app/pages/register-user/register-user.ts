@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { RegisterUser } from './register-user.service';
+import { MapsPage } from '../maps/maps';
 
 @Component({
   templateUrl: 'build/pages/register-user/register-user.html',
@@ -66,6 +67,10 @@ export class RegisterUserPage {
     delete user['confirm_password'];
     delete user['location'];
     return user;
+  }
+
+  openMap() {
+    this.navCtrl.push(MapsPage);
   }
 
   showAlert(title, content) {
