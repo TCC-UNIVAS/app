@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content overflow-scroll="false" scroll="true" padding>
   <form (ngSubmit)="doLogin(user)">
     <div style="width: 300px; height: 273px;"></div>
     <ion-list>
@@ -22,5 +22,6 @@
     </ion-list>
     <input [disabled]="passwordInvalid || emailInvalid" id="btn_login" type="submit" class="button button-royal button-large button-block" value="ENTRAR" />
     <a href="#" (click)="registerUser()" id="btn_register" class="button button-royal  button-block button-clear">Quero me cadastrar</a>
+    <button (click)="openMap()">Mapa</button>
   </form>
 </ion-content>
