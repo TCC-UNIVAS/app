@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, Platform, NavParams } from 'ionic-angular';
+import { NavController, Platform, NavParams, AlertController } from 'ionic-angular';
+import { Geolocation } from 'ionic-native';
 
 declare var google: any;
 
@@ -15,10 +16,12 @@ export class MapsPage {
     private positionClicked: any;
     private loading: any;
     private presentLoading: any;
+    private alertCtrl: any;
 
-    constructor(private nav: NavController, private param: NavParams) {
+    constructor(private nav: NavController, private param: NavParams, private alert: AlertController) {
         this.nav = nav;
         this.param = param;
+        this.alertCtrl = alert;
         this.myPosition = this.loadPosition();
         this.map;
         this.marker;
@@ -26,11 +29,10 @@ export class MapsPage {
         this.positionClicked;
     }
 
-    ngOnInit() {
-        this.presentLoading = this.param.get('loading');
-        this.loading = this.param.get('dismiss');
-
-    }
+    // ngOnInit() {
+    //     this.presentLoading = this.param.get('loading');
+    //     this.loading = this.param.get('dismiss');
+    // }
 
     savePosition() {
         if (this.marker != undefined) {
@@ -38,50 +40,66 @@ export class MapsPage {
             this.param.get('resolve')(JSON.stringify(obj));
             this.nav.pop();
         } else {
-          alert('É necessário selecionar um local para prosseguir');
+            let alert = this.alertCtrl.create({
+                title: 'Atenção',
+                subTitle: 'Por favor, informe a localização!',
+                buttons: ['OK']
+            });
+            alert.present();
         }
     }
 
     loadPosition() {
         setTimeout(() => {
             new Promise((resolve, reject) => {
-                let myPosition = { lat: -22.4133147, lng: -45.7968896 };
+                let myPosition = { lat: -22.2262223, lng: -45.9316904 };
                 this.creatMap(myPosition);
             });
+            // Geolocation.getCurrentPosition().then((resp) => {
+            //     let myPosition = { lat: resp.coords.latitude, lng: resp.coords.longitude };
+            // });
         }, 200);
     }
 
     creatMap(myPosition) {
         let options = {
-            zoom: 16,
+            zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             center: myPosition
         };
         let map = new google.maps.Map(document.getElementById('map'), options);
         this.map = map;
 
-        //this.presentLoading(false, 'Carregando Mapa...');
-
         var that = this;
-        google.maps.event.addListener(map, 'click', function (ele) {
-            that.addMarker(ele, map, that.markers);
+        google.maps.event.addListener(map, 'click', function (element) {
+            that.addMarker(element, map, that.markers);
         });
     }
 
     addMarker(myPosition, map, markers) {
-      
         var geocoder = new google.maps.Geocoder();
         var position = { lat: myPosition.latLng.lat(), lng: myPosition.latLng.lng() };
         this.positionClicked = position;
         var that = this;
 
-        geocoder.geocode({ 'location': position }, function (results, status) {
+        geocoder.geocode({'location': position}, function (results, status) {
             {
                 if (status == google.maps.GeocoderStatus.OK) {
                     console.log(results[results.length - 3].address_components[0].long_name);
 
-                    if (results[results.length - 3].address_components[0].long_name != 'Conceição dos Ouros') {
-                      alert('É necessário selecionar um local dentro para prosseguir');
+                    if (results[results.length - 3].address_components[0].long_name != 'Pouso Alegre') {
+                       let alert = that.alertCtrl.create({
+                            title: 'Atenção!',
+                            subTitle: 'O endereço informado não corresponde à cidade de Pouso Alegre. Por favor informe uma localidade  válida!',
+                            buttons: [
+                                {
+                                    text: 'Ok',
+                                    handler: data => {
+                                    }
+                                }
+                            ]
+                        });
+                        alert.present();
                     } else {
                         var opts = {
                             map: map,
@@ -99,12 +117,10 @@ export class MapsPage {
                         }
 
                         that.marker = results[0].formatted_address;
-                        let content =  '<h4>Local Selecionado!</h4>';
+                        let content =  '<p>' + results[0].formatted_address + '</p>';
                         let infoWindow = new google.maps.InfoWindow({
                             content: content
                         });
-
-                        console.log('Adress: ' + results[0].formatted_address);
 
                         google.maps.event.addListener(marker, 'click', function () {
                             infoWindow.open(this.map, marker);
