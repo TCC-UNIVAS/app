@@ -65,9 +65,6 @@ export class RegisterUserPage {
   }
 
   mountSendData(user) {
-    //let location = user.location.split(';');
-    //user.lat = location[0];
-    //user.lng = location[1];
     delete user['confirm_password'];
     delete user['location'];
     return user;
