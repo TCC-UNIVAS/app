@@ -22,6 +22,8 @@ export class RegisterUserPage {
     name: string,
     email: string,
     location: string,
+    lat: string,
+    lng: string,
     password: string,
     confirm_password: string
   };
@@ -40,6 +42,8 @@ export class RegisterUserPage {
       name: '',
       email: '',
       location: '',
+      lat: '',
+      lng: '',
       password: '',
       confirm_password: ''
     };
@@ -61,16 +65,29 @@ export class RegisterUserPage {
   }
 
   mountSendData(user) {
-    let location = user.location.split(';');
-    user.lat = location[0];
-    user.lng = location[1];
+    //let location = user.location.split(';');
+    //user.lat = location[0];
+    //user.lng = location[1];
     delete user['confirm_password'];
     delete user['location'];
     return user;
   }
 
   openMap() {
-    this.navCtrl.push(MapsPage);
+    new Promise((resolve, reject) => {
+            //this.presentLoading(true, "Aguarde...");
+            //this.navCtrl.push(MapsPage, { resolve: resolve, loading: this.presentLoading, dismiss: this.loading }).then(() => {
+            this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
+        }).then(data => {
+            let response: any = data;
+            response = JSON.parse(response);
+            console.log('Response:' + JSON.stringify(response));
+            this.user.location = response.address;
+            this.user.lat = response.latlng.lat;
+            this.user.lng = response.latlng.lng;
+            console.log('User:' + JSON.stringify(this.user));
+        });
+    //this.navCtrl.push(MapsPage);
   }
 
   showAlert(title, content) {
