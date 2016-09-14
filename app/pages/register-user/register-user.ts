@@ -54,13 +54,17 @@ export class RegisterUserPage {
       this.showAlert('Atenção!', 'É necessário preencher os campos corretamente.');
     } else {
       let userSend = this.mountSendData(user);
-      let result = this.registerUser.createUser(userSend);
-      if (result) {
+      let result = this.registerUser.createUser(userSend).then((data) => {
         this.registerUser.clearLocalStorage();
-        this.registerUser.saveUserInLocalstorage(result);
-      } else {
+        this.registerUser.saveUserInLocalstorage(data);
+        this.clearFields(user);
+        this.navCtrl.pop();
+        this.showAlert('Que bom!', 'Agora você pode ajudar Pouso Alegre a ficar livre do Aedes Aegypti!');
+      }, (err) => {
         this.showAlert('Atenção!', 'Não foi possível criar sua conta. Tente novamente mais tarde.');
-      }
+      }).catch((err) => {
+        console.log(err);
+      });
     }
   }
 
@@ -72,19 +76,14 @@ export class RegisterUserPage {
 
   openMap() {
     new Promise((resolve, reject) => {
-            //this.presentLoading(true, "Aguarde...");
-            //this.navCtrl.push(MapsPage, { resolve: resolve, loading: this.presentLoading, dismiss: this.loading }).then(() => {
-            this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
-        }).then(data => {
-            let response: any = data;
-            response = JSON.parse(response);
-            console.log('Response:' + JSON.stringify(response));
-            this.user.location = response.address;
-            this.user.lat = response.latlng.lat;
-            this.user.lng = response.latlng.lng;
-            console.log('User:' + JSON.stringify(this.user));
-        });
-    //this.navCtrl.push(MapsPage);
+      this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
+    }).then(data => {
+      let response: any = data;
+      response = JSON.parse(response);
+      this.user.location = response.address;
+      this.user.lat = response.latlng.lat;
+      this.user.lng = response.latlng.lng;
+    });
   }
 
   showAlert(title, content) {
@@ -96,7 +95,13 @@ export class RegisterUserPage {
     alert.present();
   }
 
-  
+  clearFields(user) {
+    delete user['name'];
+    delete user['email'];
+    delete user['password'];
+  }
+
+
   //*********************************VALIDATE**********************************************
   checkName(event) {
     this.noName = false;
