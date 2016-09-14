@@ -65,17 +65,12 @@ export class LoginPage {
     if (!this.validateFields(user)) {
       console.log('Não permitido!');
     } else {
-      let _this = this;
-      var manageLogin = function(result){
-        console.log(result);
-        if (result[1] = 'true') {
-          _this.navCtrl.push(TabsPage);
-        } else {
-          _this.showAlert('Atenção!', result[0]);
-        }
+      let result = this.loginService.doLogin(user.email, user.password);
+      if (result[1]) {
+        this.navCtrl.push(TabsPage);
+      } else {
+        this.showAlert('Atenção!', result[0]);
       }
-      this.loginService.doLogin(user.email, user.password, manageLogin);
-      
     }
   }
 
