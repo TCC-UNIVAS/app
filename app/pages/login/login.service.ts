@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { User } from './login.model';
 import { Config } from '../../config/config';
-import 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LoginService {
@@ -13,14 +13,21 @@ export class LoginService {
         this.URL = Config.URL;
     }
 
-    doLogin(email, password) {
-        let user = this.getUser(email, password);
-        if (user) {
-            this.saveUserInLocalstorage(user);
-            return ['', true];
-        } else {
-            return ['Não é possível fazer login!', false];
-        }
+    createUser() {}
+
+    doLogin(email, password, callback) {   
+        let _this = this;     
+        var analiseReturn = function(user, thisLogin) {
+            if (user) {
+                _this.saveUserInLocalstorage(user);  
+                var result: Array<string> = ['', 'true'];     
+                callback(result);
+            } else {
+                var result: Array<string> = ['Não é possível fazer login!', 'false'];  
+                 callback(result);
+            }
+        };
+        this.getUser(email, password, analiseReturn);
     }
 
     getUser(email, password): Promise<User> {
