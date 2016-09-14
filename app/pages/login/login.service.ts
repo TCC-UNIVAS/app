@@ -1,35 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
+import { User } from './login.model';
+import { Config } from '../../config/config';
 import 'rxjs/add/operator/map';
-import 'rxjs/Rx';
 
 @Injectable()
 export class LoginService {
-    constructor(private http : Http){
+    private URL: string;
+
+    constructor(private http: Http) {
+        this.http = http;
+        this.URL = Config.URL;
     }
 
     createUser() {}
-   
-    
-    getUser(email, password, callback) {
-        //TODO: recuperar user do serviço
-        //return '{"name":"Daniela","email":"danielamaradms@gmail.com","password":"1234","latitude":"=22.123456","longitude":"-45.123456","sign_date":"2016-08-29 12:00:00"}';
-        let body = JSON.stringify({ 'email' : email , 'password' : password });
-       // let headers = new Headers({ 'Content-Type': 'application/json' });
-        let headers = new Headers();
-        headers.append("Content-Type","application/json");
-        this.http.post('http://tcc-tccunivas.rhcloud.com/user/auth', body, {headers:headers}) 
-            .toPromise().then(function(res: Response){
-                var body = res.json();
-                console.log(body);
-                if(body != '{}')
-                    callback(body);
-                else
-                    callback(false);
-            });
-    }
-
-    updateUser() {}
 
     doLogin(email, password, callback) {   
         let _this = this;     
@@ -44,6 +28,20 @@ export class LoginService {
             }
         };
         this.getUser(email, password, analiseReturn);
+    }
+
+    getUser(email, password): Promise<User> {
+        var user = {
+            email: email,
+            password: password
+        };
+        var url = this.URL + '/user/auth';
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post(url, user, { headers: headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
     }
 
     saveUserInLocalstorage(user) {
@@ -61,5 +59,8 @@ export class LoginService {
         }
     }
 
-    updateUserInLocalstorage() {}
+    handleError(error: any) {
+        console.info('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
 }
