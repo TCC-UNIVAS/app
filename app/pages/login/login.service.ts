@@ -15,19 +15,14 @@ export class LoginService {
 
     createUser() {}
 
-    doLogin(email, password, callback) {   
-        let _this = this;     
-        var analiseReturn = function(user, thisLogin) {
-            if (user) {
-                _this.saveUserInLocalstorage(user);  
-                var result: Array<string> = ['', 'true'];     
-                callback(result);
-            } else {
-                var result: Array<string> = ['Não é possível fazer login!', 'false'];  
-                 callback(result);
-            }
-        };
-        this.getUser(email, password, analiseReturn);
+    doLogin(email, password) {
+        let user = this.getUser(email, password);
+        if (user) {
+            this.saveUserInLocalstorage(user);
+            return ['', true];
+        } else {
+            return ['Não é possível fazer login!', false];
+        }
     }
 
     getUser(email, password): Promise<User> {
