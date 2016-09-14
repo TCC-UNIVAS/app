@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { RegisterUser } from './register-user.service';
+import { MapsPage } from '../maps/maps';
 
 @Component({
   templateUrl: 'build/pages/register-user/register-user.html',
@@ -21,6 +22,8 @@ export class RegisterUserPage {
     name: string,
     email: string,
     location: string,
+    lat: string,
+    lng: string,
     password: string,
     confirm_password: string
   };
@@ -39,6 +42,8 @@ export class RegisterUserPage {
       name: '',
       email: '',
       location: '',
+      lat: '',
+      lng: '',
       password: '',
       confirm_password: ''
     };
@@ -49,23 +54,36 @@ export class RegisterUserPage {
       this.showAlert('Atenção!', 'É necessário preencher os campos corretamente.');
     } else {
       let userSend = this.mountSendData(user);
-      let result = this.registerUser.createUser(userSend);
-      if (result) {
+      let result = this.registerUser.createUser(userSend).then((data) => {
         this.registerUser.clearLocalStorage();
-        this.registerUser.saveUserInLocalstorage(result);
-      } else {
+        this.registerUser.saveUserInLocalstorage(data);
+        this.clearFields(user);
+        this.navCtrl.pop();
+        this.showAlert('Que bom!', 'Agora você pode ajudar Pouso Alegre a ficar livre do Aedes Aegypti!');
+      }, (err) => {
         this.showAlert('Atenção!', 'Não foi possível criar sua conta. Tente novamente mais tarde.');
-      }
+      }).catch((err) => {
+        console.log(err);
+      });
     }
   }
 
   mountSendData(user) {
-    let location = user.location.split(';');
-    user.lat = location[0];
-    user.lng = location[1];
     delete user['confirm_password'];
     delete user['location'];
     return user;
+  }
+
+  openMap() {
+    new Promise((resolve, reject) => {
+      this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
+    }).then(data => {
+      let response: any = data;
+      response = JSON.parse(response);
+      this.user.location = response.address;
+      this.user.lat = response.latlng.lat;
+      this.user.lng = response.latlng.lng;
+    });
   }
 
   showAlert(title, content) {
@@ -77,7 +95,13 @@ export class RegisterUserPage {
     alert.present();
   }
 
-  
+  clearFields(user) {
+    delete user['name'];
+    delete user['email'];
+    delete user['password'];
+  }
+
+
   //*********************************VALIDATE**********************************************
   checkName(event) {
     this.noName = false;

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import { User } from '../login/login.model';
 import { Config } from '../../config/config';
-import 'rxjs/Rx';
 
 @Injectable()
 export class RegisterUser {
@@ -25,7 +24,6 @@ export class RegisterUser {
 
     saveUserInLocalstorage(user) {
         var userJson = JSON.stringify(user);
-        console.log(userJson);
         window.localStorage.setItem('User', userJson);
     }
 
