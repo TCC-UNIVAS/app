@@ -63,14 +63,17 @@ export class LoginPage {
 
   doLogin(user) {
     if (!this.validateFields(user)) {
-      console.log('Não permitido!');
+      this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
     } else {
-      let result = this.loginService.doLogin(user.email, user.password);
-      if (result[1]) {
-        this.navCtrl.push(TabsPage);
-      } else {
-        this.showAlert('Atenção!', result[0]);
-      }
+      let result = this.loginService.doLogin(user.email, user.password).then((data) => {
+            this.loginService.clearLocalStorage();
+            this.loginService.saveUserInLocalstorage(data);
+            this.navCtrl.push(TabsPage);
+        }, (err) => {
+            this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
+        }).catch((err) => {
+            console.log(err);
+        });
     }
   }
 
