@@ -13,19 +13,7 @@ export class LoginService {
         this.URL = Config.URL;
     }
 
-    createUser() {}
-
-    doLogin(email, password) {
-        let user = this.getUser(email, password);
-        if (user) {
-            this.saveUserInLocalstorage(user);
-            return ['', true];
-        } else {
-            return ['Não é possível fazer login!', false];
-        }
-    }
-
-    getUser(email, password): Promise<User> {
+    doLogin(email, password): Promise<User> {
         var user = {
             email: email,
             password: password
@@ -41,7 +29,6 @@ export class LoginService {
 
     saveUserInLocalstorage(user) {
         var userJson = JSON.stringify(user);
-        console.log(userJson);
         window.localStorage.setItem('User', userJson);
     }
 
@@ -52,6 +39,10 @@ export class LoginService {
         } else {
             return null;
         }
+    }
+
+    clearLocalStorage() {
+        window.localStorage.clear();
     }
 
     handleError(error: any) {
