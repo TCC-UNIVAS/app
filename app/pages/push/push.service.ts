@@ -1,15 +1,20 @@
 import { Injectable } from '@angular/core';
 import {Push} from 'ionic-native';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import { Config } from '../../config/config';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class PushService{
-     constructor(private http: Http) {
-
+    private URL: string;
+    
+    constructor(private http: Http) {
+        this.http = http;
+        this.URL = Config.URL;
     }
 
-    init() {
-        var push = Push.init({
+    init(){
+     var push = Push.init({
         android: {
           senderID: "256530126858"
         },
@@ -23,9 +28,21 @@ export class PushService{
 
       push.on('registration', (data) => {
         let token = data.registrationId;
-        this.http.post('tcc-tccunivas.rhcloud.com/addUser',token);
+        let user = JSON.parse(window.localStorage.getItem("User"));
+        let json = JSON.stringify({
+          'token': token,
+          'email': user.email
+        });
+        console.log(json);
+        let URL = this.URL + '/user/token';
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        this.http.post(URL, json, { headers: headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+
         console.log(data.registrationId);
-        alert(data.registrationId);
       });
 
       push.on('notification', (data) => {
@@ -43,6 +60,11 @@ export class PushService{
         console.log(e.message);
         alert(e.message);
       });
-    };
+    }
+
+    handleError(error: any) {
+        console.info('An error occurred', error);
+        return Promise.reject(error.message || error);
+    }
 }
 
