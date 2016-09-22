@@ -38,4 +38,6 @@
     <preference name="xwalkMode" value="embedded" />
     <preference name="xwalkMultipleApk" value="true" />
     <preference name="android-minSdkVersion" value="16" />
+    <plugin name="cordova-plugin-geolocation" spec="~2.3.0" />
+    <plugin name="cordova-plugin-camera" spec="~2.3.0" />
 </widget>

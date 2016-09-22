@@ -49,15 +49,19 @@ export class MapsPage implements OnInit {
 
     loadPosition() {
         setTimeout(() => {
-            new Promise((resolve, reject) => {
+             new Promise((resolve, reject) => {
                 let myLocation = { lat: -22.2262223, lng: -45.9316904 };
                 this.creatMap(myLocation);
             });
-            // Geolocation.getCurrentPosition().then((resp) => {
-            //     let myLocation = { lat: resp.coords.latitude, lng: resp.coords.longitude };
-            // });
+    //    Geolocation.getCurrentPosition().then((position) => {
+    //         this.myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    //         this.creatMap(this.myLocation);
+    //     }, (err) => {
+    //         console.log(err);
+    // });
+
         }, 200);
-    }
+    }   
 
     creatMap(myLocation) {
         let mapOptions = {

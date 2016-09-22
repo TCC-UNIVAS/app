@@ -4,7 +4,7 @@ import { StatusBar } from 'ionic-native';
 import { TabsPage } from './pages/tabs/tabs';
 import { LoginPage } from './pages/login/login';
 import { LoginService } from './pages/login/login.service';
-import { PushService } from './pages/push/push.service';
+
 
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
@@ -29,4 +29,4 @@ export class MyApp {
   }
 }
 
-ionicBootstrap(MyApp, [PushService]);
+ionicBootstrap(MyApp);
