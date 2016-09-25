@@ -19,7 +19,7 @@ export class ReportCasePage {
     lat: number,
     lng: number,
     comments: string,
-    image: string
+    picture: string   
   };
 
   constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera, public alertCtrl: AlertController) {
@@ -32,8 +32,8 @@ export class ReportCasePage {
         comments: '',
         lat: null,
         lng: null,
-        image: ''
-    };
+        picture: ''        
+    }
   }
 
   saveCase(data) {    
@@ -76,6 +76,7 @@ export class ReportCasePage {
   }
 
   takePic() {
-    this.camera.takePicture();
+    console.log(this.data);
+    this.camera.takePicture(this.data);
   }
 }

@@ -16,25 +16,16 @@
               <ion-label>Comentarios:</ion-label>
               <ion-input [(ngModel)]="data.comments" type="text" name="comments" maxlenght="150" id="comments" required></ion-input>
             </ion-item>
+             
+            <ion-item ng-if="data.picture">
+              <ion-card>
+                <img [src]="data.picture" name="picture"  id="picture">
+              </ion-card>
+            </ion-item>
             <ion-item>
               <button full (click)=takePic()>Foto</button>
             </ion-item>
-            <!--<ion-item>-->
-              <!--<ion-label>Email:</ion-label>
-              <ion-input [(ngModel)]="data.email" type="email" name="email" (input)="checkEmail($event)" 
-                [class.invalid]="emailInvalid" required></ion-input>
-            </ion-item>
             
-            <ion-item>
-              <ion-label>Senha:</ion-label>
-              <ion-input [(ngModel)]="data.password" type="password" name="password" (input)="checkPassword($event)" 
-                [class.invalid]="passwordInvalid" required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label>Confirmação da senha:</ion-label>
-              <ion-input [(ngModel)]="data.confirm_password" type="password" name="confirm_password" 
-                (input)="checkPasswordEquals($event,data)" [class.invalid]="passwordInvalid" required></ion-input>
-            </ion-item>-->
         </ion-list>
         <input [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Inserir" 
           class="button button-royal button-large button-block"/>
