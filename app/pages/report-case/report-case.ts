@@ -32,9 +32,15 @@ export class ReportCasePage {
         comments: '',
         lat: null,
         lng: null,
-        picture: ''        
+        picture: null        
     }
   }
+
+
+  eraseImage(){
+    this.data.picture = null;
+  }
+
 
   saveCase(data) {    
       this.clearFields(data);
@@ -69,6 +75,7 @@ export class ReportCasePage {
     field.value = '';
     field = <HTMLInputElement>document.getElementById('comments');
     field.value = '';
+    this.data.picture = null;
   }
 
   clearFields(data) {

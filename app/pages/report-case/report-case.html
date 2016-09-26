@@ -17,13 +17,14 @@
               <ion-input [(ngModel)]="data.comments" type="text" name="comments" maxlenght="150" id="comments" required></ion-input>
             </ion-item>
              
-            <ion-item ng-if="data.picture">
-              <ion-card>
+            <ion-item>
+              <ion-card [ng-if]="data.picture">
+                <img id="close" src="../../../resources/icon_close.png" alt="close" (click)=eraseImage()>
                 <img [src]="data.picture" name="picture"  id="picture">
               </ion-card>
             </ion-item>
             <ion-item>
-              <button full (click)=takePic()>Foto</button>
+              <button id="pic" full (click)=takePic()>Foto</button>
             </ion-item>
             
         </ion-list>
