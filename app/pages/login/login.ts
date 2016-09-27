@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { LoginService } from './login.service';
 import { RegisterUserPage } from '../register-user/register-user';
@@ -23,7 +23,7 @@ export class LoginPage {
     sign_date: string
   };
 
-  constructor(private navCtrl: NavController, private loginService: LoginService, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private loginService: LoginService, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
     this.emailInvalid = true;
     this.passwordInvalid = true;
     this.noEmail = true;
@@ -65,13 +65,17 @@ export class LoginPage {
     if (!this.validateFields(user)) {
       this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
     } else {
+      this.presentLoading(true, 'Carregando...');
       let result = this.loginService.doLogin(user.email, user.password).then((data) => {
             this.loginService.clearLocalStorage();
             this.loginService.saveUserInLocalstorage(data);
+            this.presentLoading(false, 'Carregando...');
             this.navCtrl.push(TabsPage);
         }, (err) => {
+            this.presentLoading(false, 'Carregando...');
             this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
         }).catch((err) => {
+            this.presentLoading(false, 'Carregando...');
             console.log(err);
         });
     }
@@ -84,6 +88,25 @@ export class LoginPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  presentLoading(showLoading, message) {
+     var loader: any;
+     if (showLoading) {
+        loader = this.loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: false,
+            duration: 2500
+        });
+        loader.present();
+     } 
+    //  else {
+    //    try {
+    //      loader.present();
+    //    } catch (e) {
+    //      console.log('Error' + e);
+    //    }
+    //  }
   }
 
   registerUser() {

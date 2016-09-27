@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Meus casos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+        <ion-list *ngFor="let case of cases" class="flora-list" tappable (click)="nextPage()">
+            <ion-item no-lines class="item-list">
+                <ion-avatar [ngStyle]="{'background': getImage(case.image), 'background-color': getImage(case.image) }" class="item-avatar"
+                    item-left>
+                    <img>
+                </ion-avatar>
+                <div item-center class="popular-name">{{case.comments}}</div>
+                <div item-center class="cientific-name">{{case.lat}}</div>
+            </ion-item>
+            <div class="item-divider"></div>
+
+
+        <!--<ion-item-sliding>
+            <ion-item>
+                <ion-avatar item-left>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSSlrR4c1JpqnzrHrK2LyCYe9y9cTK1XTldfc4aWJhFPCkTBKS">
+                </ion-avatar>
+                <h2>Slimer</h2>
+            </ion-item>
+        </ion-item-sliding>-->
+        <!--<ion-item no-lines class="item-list">
+            <ion-avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSSlrR4c1JpqnzrHrK2LyCYe9y9cTK1XTldfc4aWJhFPCkTBKS" class="item-avatar"
+            item-left>
+            <img>
+            </ion-avatar>
+            <div item-center class="popular-name">okok</div>
+            <div item-center class="cientific-name">lalalal</div>
+        </ion-item>-->
+    </ion-list>
+</ion-content>

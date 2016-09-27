@@ -1,34 +1,17 @@
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Estatísticas e Relatórios</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content padding>
+  <div style="width: 300px; height: 273px;"></div>
   <ion-list>
-    <ion-item>
-      <ion-thumbnail item-left>
-        <img src="https://www.iped.com.br/_upload/content/2015/08/26/natureza-tratamento-alma.jpg">
-      </ion-thumbnail>
-      <h2>Meus casos</h2>
-      <button clear item-right>Confira</button>
-    </ion-item>
-    <ion-item>
-      <ion-thumbnail item-left>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTW1XeBi-et9AFXHvUSQHJz48LlpQT4507Fus7RQnlR5-F-t696">
-      </ion-thumbnail>
-      <h2>Meu bairro</h2>
-      <button clear item-right>Confira</button>
-    </ion-item>
-    <ion-item>
-      <ion-thumbnail item-left>
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSSlrR4c1JpqnzrHrK2LyCYe9y9cTK1XTldfc4aWJhFPCkTBKS">
-      </ion-thumbnail>
-      <h2>Áreas mais atingidas</h2>
-      <button clear item-right>Confira</button>
-    </ion-item>
-  </ion-list>
+  <ion-item (click)="myCasesPage()">
+    <ion-icon name="locate" item-left></ion-icon>
+      Meus casos
+  </ion-item>
+  <ion-item (click)="allCasesPage()">
+    <ion-icon name="pin" item-left></ion-icon>
+      Todos os casos
+  </ion-item>
+  <ion-item (click)="commonDiseasesPage()">
+    <ion-icon name="stats" item-left></ion-icon>
+      Doenças mais frequentes
+  </ion-item>
+</ion-list>
 </ion-content>
