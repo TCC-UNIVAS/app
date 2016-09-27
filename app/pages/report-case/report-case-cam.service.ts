@@ -1,4 +1,4 @@
-import { AlertController } from 'ionic-angular';
+
 import { Camera } from 'ionic-native';
 
 
@@ -9,12 +9,12 @@ export class ReportCaseCamera{
     //     this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
     // }
 
-    constructor( public alertCtrl: AlertController ){
+    constructor(  ){
         //this.alertCtrl = alertCtrl;
     }
 
     
-    openCamera(data){
+    getPicture(data){
         console.log(data);
         var base64Image = null;
         Camera.getPicture({quality:50, destinationType: Camera.DestinationType.DATA_URL, sourceType: this.sourceType}).then((imageData) => {
@@ -30,25 +30,21 @@ export class ReportCaseCamera{
         
     }
 
-     takePicture(data){
-        let alert = this.alertCtrl.create({
-            title: 'selecione',
-            buttons: [{
-                text: 'Câmera',
-                handler: () => {
-                    this.sourceType =  Camera.PictureSourceType.CAMERA;
-                    this.openCamera(data);
-                }
-            },{
-                text: 'Câmera',
-                handler: () => {
-                    this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-                    this.openCamera(data);
-                }
-            }
-            ]
-        });
-        alert.present();        
+    takePicture(data){
+        this.sourceType = Camera.PictureSourceType.CAMERA;
+        this.getPicture(data);
     }
+
+    getFromGallery(data){
+        this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
+        this.getPicture(data);
+    }
+
+
+    erasePicture(data){
+        data.picture = 'http://ionicframework.com/img/ionic-logo-blog.png';
+    }
+
+    
 
 }

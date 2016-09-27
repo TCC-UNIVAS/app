@@ -18,14 +18,13 @@
             </ion-item>
              
             <ion-item>
-              <ion-card [ng-if]="data.picture">
-                <img id="close" src="../../../resources/icon_close.png" alt="close" (click)=eraseImage()>
+              <ion-card id="cardImage" (click)=presentActionSheet()>
                 <img [src]="data.picture" name="picture"  id="picture">
               </ion-card>
             </ion-item>
-            <ion-item>
+            <!--<ion-item>
               <button id="pic" full (click)=takePic()>Foto</button>
-            </ion-item>
+            </ion-item>-->
             
         </ion-list>
         <input [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Inserir" 

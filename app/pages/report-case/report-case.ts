@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
 import { ReportCase } from './report-case.service';
 import { ReportCaseCamera } from './report-case-cam.service';
 import { MapsPage } from '../maps/maps';
@@ -22,7 +22,8 @@ export class ReportCasePage {
     picture: string   
   };
 
-  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
+       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
@@ -32,7 +33,7 @@ export class ReportCasePage {
         comments: '',
         lat: null,
         lng: null,
-        picture: null        
+        picture: 'http://ionicframework.com/img/ionic-logo-blog.png'    
     }
   }
 
@@ -82,8 +83,36 @@ export class ReportCasePage {
     delete data['location'];
   }
 
-  takePic() {
-    console.log(this.data);
-    this.camera.takePicture(this.data);
+  // takePic() {
+  //   this.presentActionSheet();
+  //   // console.log(this.data);
+  //   // this.camera.takePicture(this.data);
+  // }
+
+
+  presentActionSheet() {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Selecione uma opção',
+      buttons: [
+        {
+          text: 'Tirar foto',
+          handler: () => {
+            this.camera.takePicture(this.data);
+          }
+        },{
+          text: 'Selecionar da galeria',
+          handler: () => {
+            this.camera.getFromGallery(this.data);
+          }
+        },{
+          text: 'Apagar foto',
+          role: 'destructive',
+          handler: () => {
+            this.camera.erasePicture(this.data);
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }
