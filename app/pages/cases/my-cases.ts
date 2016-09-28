@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CasesService} from './cases.service';
 
@@ -10,9 +10,11 @@ import { CasesService} from './cases.service';
 
 export class MyCasesPage {
   private cases: any;
+  private loading: any;
 
-  constructor(private navCtrl: NavController, private casesService: CasesService) {
+  constructor(private navCtrl: NavController, public alertCtrl: AlertController, private casesService: CasesService) {
     this.cases;
+    this.loading;
   }
 
   ngOnInit() {
@@ -24,20 +26,26 @@ export class MyCasesPage {
 
     let result = this.casesService.getByUserId(userId).then((data) => {
       this.cases = data;
-      console.log('DAta: ' + this.cases);
     }, (err) => {
-      console.log(err);
-      //this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
+      this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
     }).catch((err) => {
       console.log(err);
     });
   }
 
   getImage(image) {
-        if (!image) {
-            return "#eee";
-        }
-        return 'url(' + image + ') center center / cover no-repeat';
+    if (!image) {
+      return '#eee';
+    }
+    return 'url(' + image + ') center center / cover no-repeat';
+  }
 
-    } 
+  showAlert(title, content) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: content,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
 }

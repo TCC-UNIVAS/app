@@ -10,6 +10,7 @@ import { RegisterUserPage } from '../register-user/register-user';
 })
 
 export class LoginPage {
+  private loading: any;
   emailInvalid: boolean;
   passwordInvalid: boolean;
   noEmail: boolean;
@@ -24,6 +25,7 @@ export class LoginPage {
   };
 
   constructor(private navCtrl: NavController, private loginService: LoginService, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+    this.loading;
     this.emailInvalid = true;
     this.passwordInvalid = true;
     this.noEmail = true;
@@ -91,22 +93,15 @@ export class LoginPage {
   }
 
   presentLoading(showLoading, message) {
-     var loader: any;
      if (showLoading) {
-        loader = this.loadingCtrl.create({
+        this.loading = this.loadingCtrl.create({
             content: message,
-            dismissOnPageChange: false,
-            duration: 2500
+            dismissOnPageChange: false
         });
-        loader.present();
-     } 
-    //  else {
-    //    try {
-    //      loader.present();
-    //    } catch (e) {
-    //      console.log('Error' + e);
-    //    }
-    //  }
+        this.loading.present();
+     } else {
+        this.loading.dismiss();
+     }
   }
 
   registerUser() {

@@ -10,52 +10,43 @@ import { CasesService} from './cases.service';
 
 export class CasesPage {
   private cases: any;
+  private loading: any;
 
   constructor(private navCtrl: NavController, public loadingCtrl: LoadingController, private casesService: CasesService) {
     this.cases;
+    this.loading;
   }
 
   myCasesPage() {
-    // let userId = 79;
-
-    // this.presentLoading(true, 'Carregando...');
-    // let result = this.casesService.getByUserId(userId).then((data) => {
-    //   this.presentLoading(false, 'Carregando...');
-    //   this.cases = data;
-    //   this.navCtrl.push(MyCasesPage);
-    // }, (err) => {
-    //   this.presentLoading(false, 'Carregando...');
-    //   //this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
-    // }).catch((err) => {
-    //   this.presentLoading(false, 'Carregando...');
-    //   console.log(err);
-    // });
-    this.navCtrl.push(MyCasesPage);
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(MyCasesPage).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
   allCasesPage() {
     this.presentLoading(true, 'Carregando...');
-    this.navCtrl.push(MyCasesPage);
+    this.navCtrl.push(MyCasesPage).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
   commonDiseasesPage() {
     this.presentLoading(true, 'Carregando...');
-    this.navCtrl.push(MyCasesPage);
+    this.navCtrl.push(MyCasesPage).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
    presentLoading(showLoading, message) {
-     var loader: any;
-
      if (showLoading) {
-        loader = this.loadingCtrl.create({
+        this.loading = this.loadingCtrl.create({
             content: message,
-            dismissOnPageChange: false,
-            duration: 500
+            dismissOnPageChange: false
         });
-        loader.present();
+        this.loading.present();
+     } else {
+        this.loading.dismiss();
      }
-    //  else {
-    //     loader.dismiss();
-    //  }
   }
 }
