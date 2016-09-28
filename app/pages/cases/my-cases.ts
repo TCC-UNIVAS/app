@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { CasesPage} from './cases';
+import { CasesPage } from './cases';
+import { DetailCasePage } from './detail-case';
 import { CasesService} from './cases.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class MyCasesPage {
   private cases: any;
   private loading: any;
 
-  constructor(private navCtrl: NavController, public alertCtrl: AlertController, private casesService: CasesService) {
+  constructor(private navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private casesService: CasesService) {
     this.cases;
     this.loading;
   }
@@ -49,6 +50,15 @@ export class MyCasesPage {
     }
   }
 
+  detailCasePage(caso1) {
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(DetailCasePage, {
+        caso: caso1
+      }).then(() => {
+        this.presentLoading(false, 'Carregando');
+      });
+  }
+
   getImage(image) {
     if (!image) {
       return '#eee';
@@ -63,5 +73,17 @@ export class MyCasesPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  presentLoading(showLoading, message) {
+     if (showLoading) {
+        this.loading = this.loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: false
+        });
+        this.loading.present();
+     } else {
+        this.loading.dismiss();
+     }
   }
 }
