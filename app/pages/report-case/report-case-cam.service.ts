@@ -1,16 +1,11 @@
-
+import { Injectable } from '@angular/core';
 import { Camera } from 'ionic-native';
 
-
+@Injectable()
 export class ReportCaseCamera{
-    sourceType: any;
-
-    // constructor(private alertCtrl: AlertController){
-    //     this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
-    // }
-
-    constructor(  ){
-        //this.alertCtrl = alertCtrl;
+    private sourceType: any;
+    
+    constructor(){       
     }
 
     
@@ -21,19 +16,20 @@ export class ReportCaseCamera{
             // imageData is either a base64 encoded string or a file URI
             // If it's base64:
             base64Image = 'data:image/jpeg;base64,' + imageData;
-            console.log(base64Image);
+            //console.log(base64Image);
             data.picture = base64Image;
         }, (err) => {
             console.log(err);
             base64Image = null;
-        });
-        
+        });        
     }
+
 
     takePicture(data){
         this.sourceType = Camera.PictureSourceType.CAMERA;
         this.getPicture(data);
     }
+
 
     getFromGallery(data){
         this.sourceType = Camera.PictureSourceType.PHOTOLIBRARY;
@@ -42,7 +38,7 @@ export class ReportCaseCamera{
 
 
     erasePicture(data){
-        data.picture = 'http://ionicframework.com/img/ionic-logo-blog.png';
+        data.picture = 'img/icon_camera.jpg';
     }
 
     

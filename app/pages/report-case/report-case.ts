@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, ActionSheetController } from 'ionic-angular';
+import { NavController, AlertController, ActionSheetController, LoadingController } from 'ionic-angular';
 import { ReportCase } from './report-case.service';
 import { ReportCaseCamera } from './report-case-cam.service';
 import { MapsPage } from '../maps/maps';
@@ -23,17 +23,19 @@ export class ReportCasePage {
   };
 
   constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
-       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController) {
+       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, private loadingCtrl: LoadingController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
         location: '',
         user_id: null,
-        category_id: null,
+        category_id: 1,
         comments: '',
         lat: null,
         lng: null,
-        picture: 'http://ionicframework.com/img/ionic-logo-blog.png'    
+        // conver the file png to base 64
+        // picture: this.reportCase.convertTo64('../img/icon_camera.png')
+        picture: 'img/icon_camera.jpg'    
     }
   }
 
@@ -45,7 +47,8 @@ export class ReportCasePage {
 
   saveCase(data) {    
       this.clearFields(data);
-      let result = this.reportCase.saveInBD(data);
+      this.presentLoading(true, 'Salvando caso...');
+      let result = this.reportCase.saveInBD(data);      
       this.eraseFields();
     }
   
@@ -61,6 +64,7 @@ export class ReportCasePage {
       this.data.lng = response.latlng.lng;
     });
   }
+  
 
   showAlert(title, content) {
     let alert = this.alertCtrl.create({
@@ -71,24 +75,29 @@ export class ReportCasePage {
     alert.present();
   }
 
-  eraseFields(){
-    let field = <HTMLInputElement>document.getElementById('location');
-    field.value = '';
-    field = <HTMLInputElement>document.getElementById('comments');
-    field.value = '';
-    this.data.picture = null;
+
+  eraseFields(){ 
+    this.data.location = '';
+    this.data.comments = '';
+    this.data.picture = 'img/icon_camera.jpg';
   }
+
 
   clearFields(data) {
     delete data['location'];
   }
 
-  // takePic() {
-  //   this.presentActionSheet();
-  //   // console.log(this.data);
-  //   // this.camera.takePicture(this.data);
-  // }
-
+ presentLoading(showLoading, message) {
+     var loader: any;
+     if (showLoading) {
+        loader = this.loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: true,
+            duration: 2500
+        });
+        loader.present();
+     } 
+ }
 
   presentActionSheet() {
     let actionSheet = this.actionSheetCtrl.create({

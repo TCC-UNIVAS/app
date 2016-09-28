@@ -16,20 +16,25 @@
               <ion-label>Comentarios:</ion-label>
               <ion-input [(ngModel)]="data.comments" type="text" name="comments" maxlenght="150" id="comments" required></ion-input>
             </ion-item>
-             
+
+            <ion-item>
+               <ion-label>Categoria</ion-label>
+                  <ion-select [(ngModel)]="data.category_id" name="category_id">
+                    <ion-option value="1">Foco de mosquitos</ion-option>
+                    <ion-option value="2">Caso de dengue</ion-option>
+                    <ion-option value="3">caso de Zika</ion-option>
+                    <ion-option value="4">Caso de chikungunya</ion-option>                    
+                 </ion-select>   
+            </ion-item>    
+
             <ion-item>
               <ion-card id="cardImage" (click)=presentActionSheet()>
                 <img [src]="data.picture" name="picture"  id="picture">
               </ion-card>
             </ion-item>
-            <!--<ion-item>
-              <button id="pic" full (click)=takePic()>Foto</button>
-            </ion-item>-->
             
         </ion-list>
         <input [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Inserir" 
           class="button button-royal button-large button-block"/>
     </form>
 </ion-content>
-
-
