@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { HomePage } from '../home/home';
+import { CasesPage} from './cases';
 import { CasesService} from './cases.service';
 
 @Component({
@@ -22,15 +23,30 @@ export class MyCasesPage {
   }
 
   getByUserId() {
-    let userId = 79;
+    var userId = this.getUserIdFromLocalstorage();
 
-    let result = this.casesService.getByUserId(userId).then((data) => {
-      this.cases = data;
-    }, (err) => {
+    if (userId != null) {
+      this.casesService.getByUserId(userId).then((data) => {
+        this.cases = data;
+      }, (err) => {
+        this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
+        this.navCtrl.push(CasesPage);
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else {
       this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
-    }).catch((err) => {
-      console.log(err);
-    });
+      this.navCtrl.push(CasesPage);
+    }
+  }
+
+  getUserIdFromLocalstorage() {
+    var userJson = window.localStorage.getItem('User');
+    if (userJson) {
+        return JSON.parse(userJson).user_id;
+    } else {
+        return null;
+    }
   }
 
   getImage(image) {
