@@ -22,12 +22,7 @@ export class MyCasesPage {
   }
 
   ngOnInit() {
-    try {
-      this.getByUserId();
-      this.hideTabs();
-    } catch (error) {
-      console.log(error);
-    } 
+    this.getByUserId();
   }
 
   getByUserId() {
@@ -42,14 +37,12 @@ export class MyCasesPage {
       }, (err) => {
         this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
         this.navCtrl.push(CasesPage);
-        this.showTabs();
       }).catch((err) => {
         console.log(err);
       });
     } else {
       this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
       this.navCtrl.push(CasesPage);
-      this.showTabs();
     }
   }
 
@@ -97,13 +90,5 @@ export class MyCasesPage {
      } else {
         this.loading.dismiss();
      }
-  }
-
-  hideTabs() {
-    document.querySelector('ion-tabbar')['style'].display = 'none';
-  }
-
-  showTabs() {
-    document.querySelector('ion-tabbar')['style'].display = 'flex';
   }
 }
