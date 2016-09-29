@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { LoginService } from './login.service';
 import { RegisterUserPage } from '../register-user/register-user';
@@ -10,6 +10,7 @@ import { RegisterUserPage } from '../register-user/register-user';
 })
 
 export class LoginPage {
+  private loading: any;
   emailInvalid: boolean;
   passwordInvalid: boolean;
   noEmail: boolean;
@@ -23,7 +24,8 @@ export class LoginPage {
     sign_date: string
   };
 
-  constructor(private navCtrl: NavController, private loginService: LoginService, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private loginService: LoginService, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+    this.loading;
     this.emailInvalid = true;
     this.passwordInvalid = true;
     this.noEmail = true;
@@ -36,6 +38,11 @@ export class LoginPage {
       longitude: '',
       sign_date: ''
     };
+    try {
+      this.hideTabs();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   checkEmail(event) {
@@ -65,13 +72,17 @@ export class LoginPage {
     if (!this.validateFields(user)) {
       this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
     } else {
+      this.presentLoading(true, 'Carregando...');
       let result = this.loginService.doLogin(user.email, user.password).then((data) => {
             this.loginService.clearLocalStorage();
             this.loginService.saveUserInLocalstorage(data);
+            this.presentLoading(false, 'Carregando...');
             this.navCtrl.push(TabsPage);
         }, (err) => {
+            this.presentLoading(false, 'Carregando...');
             this.showAlert('Atenção!', 'Informe corretamente seus dados de acesso!');
         }).catch((err) => {
+            this.presentLoading(false, 'Carregando...');
             console.log(err);
         });
     }
@@ -86,7 +97,27 @@ export class LoginPage {
     alert.present();
   }
 
+  presentLoading(showLoading, message) {
+     if (showLoading) {
+        this.loading = this.loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: false
+        });
+        this.loading.present();
+     } else {
+        this.loading.dismiss();
+     }
+  }
+
   registerUser() {
     this.navCtrl.push(RegisterUserPage);
+  }
+
+  hideTabs() {
+    document.querySelector('ion-tabbar')['style'].display = 'none';
+  }
+
+  showTabs() {
+    document.querySelector('ion-tabbar')['style'].display = 'flex';
   }
 }

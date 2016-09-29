@@ -25,6 +25,13 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
     });
-  }  
+  }
 }
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [],
+{
+  platforms: {
+    android: {
+      tabsHideOnSubPages: true
+    }
+  }
+});

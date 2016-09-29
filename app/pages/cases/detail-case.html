@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ case.name }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img [src]="case.image"></ion-img>
+  </div>
+  <div>
+    <img [src]="case.map" alt="Mapa">
+  </div>
+  <div class="content-padding ">
+    <p class="text-bold">Data:</p>
+    <p>{{case.create_date}}</p>
+    <p class="text-bold">Endereço:</p>
+    <p>{{ case.address }}</p>
+    <p class="text-bold">Comentário:</p>
+    <p>{{case.comments}}</p>
+  </div>
+</ion-content>

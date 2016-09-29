@@ -28,7 +28,7 @@
     "tslint-ionic-rules": "^0.0.3",
     "run-sequence": "1.1.5"
   },
-  "name": "deolhonoaedes",
+  "name": "De olho no Aedes",
   "description": "deOlhoNoAedes: An Ionic project",
   "cordovaPlugins": [
     "cordova-plugin-device",

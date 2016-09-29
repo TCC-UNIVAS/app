@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { RegisterUser } from './register-user.service';
 import { MapsPage } from '../maps/maps';
 
@@ -9,6 +9,7 @@ import { MapsPage } from '../maps/maps';
 })
 
 export class RegisterUserPage {
+  private loading: any;
   nameInvalid: boolean;
   emailInvalid: boolean;
   locationInvalid: boolean;
@@ -28,7 +29,8 @@ export class RegisterUserPage {
     confirm_password: string
   };
 
-  constructor(private navCtrl: NavController, private registerUser: RegisterUser, public alertCtrl: AlertController) {
+  constructor(private navCtrl: NavController, private registerUser: RegisterUser, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
+    this.loading;
     this.nameInvalid = true;
     this.emailInvalid = true;
     this.locationInvalid = true;
@@ -55,14 +57,18 @@ export class RegisterUserPage {
     } else {
       let userSend = this.mountSendData(user);
       let result = this.registerUser.createUser(userSend).then((data) => {
+        this.presentLoading(true, 'Carregando...');
         this.registerUser.clearLocalStorage();
         this.registerUser.saveUserInLocalstorage(data);
         this.clearFields(user);
+        this.presentLoading(false, 'Carregando...');
         this.navCtrl.pop();
         this.showAlert('Que bom!', 'Agora você pode ajudar Pouso Alegre a ficar livre do Aedes Aegypti!');
       }, (err) => {
+        this.presentLoading(false, 'Carregando...');
         this.showAlert('Atenção!', 'Não foi possível criar sua conta. Tente novamente mais tarde.');
       }).catch((err) => {
+        this.presentLoading(false, 'Carregando...');
         console.log(err);
       });
     }
@@ -75,6 +81,7 @@ export class RegisterUserPage {
   }
 
   openMap() {
+    //this.presentLoading(true, 'Aguarde...');
     new Promise((resolve, reject) => {
       this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
     }).then(data => {
@@ -84,6 +91,7 @@ export class RegisterUserPage {
       this.user.lat = response.latlng.lat;
       this.user.lng = response.latlng.lng;
     });
+    //this.presentLoading(false, 'Aguarde...');
   }
 
   showAlert(title, content) {
@@ -99,6 +107,18 @@ export class RegisterUserPage {
     delete user['name'];
     delete user['email'];
     delete user['password'];
+  }
+
+  presentLoading(showLoading, message) {
+     if (showLoading) {
+        this.loading = this.loadingCtrl.create({
+            content: message,
+            dismissOnPageChange: false
+        });
+        this.loading.present();
+     } else {
+        this.loading.dismiss();
+     }
   }
 
 
