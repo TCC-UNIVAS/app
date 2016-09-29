@@ -5,7 +5,6 @@ import { TabsPage } from './pages/tabs/tabs';
 import { LoginPage } from './pages/login/login';
 import { LoginService } from './pages/login/login.service';
 
-
 @Component({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
   providers: [LoginService],
@@ -26,7 +25,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
     });
-  }
+  }  
 }
-
 ionicBootstrap(MyApp);

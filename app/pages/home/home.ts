@@ -1,7 +1,7 @@
-import {Component,ViewChild} from '@angular/core';
-import {NavController} from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 import { PushService } from '../push/push.service';
-import {Push} from 'ionic-native';
+import { Push } from 'ionic-native';
 import { Http, Headers } from '@angular/http';
 
 
