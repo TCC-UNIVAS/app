@@ -5,6 +5,9 @@
 </ion-header>
 
 <ion-content padding>
+    <div [hidden]="hasCases">
+        <p>Você ainda não registrou nenhum caso</p>
+    </div>
     <ion-list *ngFor="let case of cases" tappable (click)="detailCasePage(case)">
         <ion-item no-lines class="item-list">
             <ion-avatar [ngStyle]="{'background': getImage(case.image), 'background-color': getImage(case.image) }" class="item-avatar"

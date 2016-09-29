@@ -13,10 +13,12 @@ import { CasesService} from './cases.service';
 export class MyCasesPage {
   private cases: any;
   private loading: any;
+  public hasCases: Boolean;
 
   constructor(private navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private casesService: CasesService) {
-    this.cases;
+    this.cases = null;
     this.loading;
+    this.hasCases = true;
   }
 
   ngOnInit() {
@@ -29,6 +31,9 @@ export class MyCasesPage {
     if (userId != null) {
       this.casesService.getByUserId(userId).then((data) => {
         this.cases = data;
+        if (this.cases == 0) {
+          this.hasCases = false;
+        }
       }, (err) => {
         this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
         this.navCtrl.push(CasesPage);
