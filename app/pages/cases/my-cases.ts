@@ -61,7 +61,7 @@ export class MyCasesPage {
 
   getImage(image) {
     if (!image) {
-      return '#eee';
+      return '#ddd';
     }
     return 'url(' + image + ') center center / cover no-repeat';
   }

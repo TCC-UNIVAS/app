@@ -1,18 +1,20 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Detalhes</ion-title>
+    <ion-title>{{ case.category_id }}</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div>
-    <img src="{{case.image}}">
+    <ion-img src="{{case.image}}"></ion-img>
+    <div class="box-image-empty" [hidden]="hasImage"></div>
   </div>
-  <p style="font-weight: bold; text-align:center;">{{case.category_id}}</p><br>
-  <p style="font-weight: bold;">Data:</p>
-  <p>{{case.create_date}}</p>
-  <p style="font-weight: bold;">Endereço:</p>
-  <p>COLOCAR NO MODELO DE DADOS!!!</p>
-  <p style="font-weight: bold;">Comentário:</p>
-  <p>{{case.comments}}</p>
+  <div class="content-padding ">
+    <p class="text-bold">Data:</p>
+    <p>{{case.create_date}}</p>
+    <p class="text-bold">Endereço:</p>
+    <p>COLOCAR NO MODELO DE DADOS!!!</p>
+    <p class="text-bold">Comentário:</p>
+    <p>{{case.comments}}</p>
+  </div>
 </ion-content>

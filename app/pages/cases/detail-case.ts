@@ -12,6 +12,7 @@ import { CasesService } from './cases.service';
 export class DetailCasePage {
   private case: any;
   private loading: any;
+  public hasImage: Boolean = true;
 
   constructor(
       private navCtrl: NavController, 
@@ -21,15 +22,17 @@ export class DetailCasePage {
       private casesService: CasesService)
     {
         this.case = navParams.get('caso');
+        this.getImage();
         this.loading;
     }
 
-  getImage(image) {
-    if (!image) {
-      return '#eee';
+  getImage() {
+    if (!this.case.image) {
+      this.hasImage = false;
     }
-    return 'url(' + image + ') center center / cover no-repeat';
   }
+
+
 
 //   showAlert(title, content) {
 //     let alert = this.alertCtrl.create({
