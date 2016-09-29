@@ -13,8 +13,14 @@ export class CasesPage {
   private loading: any;
 
   constructor(private navCtrl: NavController, public loadingCtrl: LoadingController, private casesService: CasesService) {
+    debugger;
     this.cases;
     this.loading;
+  }
+
+  ngAfterViewInit() {
+    debugger;
+    this.showTabs();
   }
 
   myCasesPage() {
@@ -48,5 +54,14 @@ export class CasesPage {
      } else {
         this.loading.dismiss();
      }
+  }
+
+  hideTabs() {
+    document.querySelector('ion-tabbar')['style'].display = 'none';
+  }
+
+  showTabs() {
+    document.getElementById('tabs-content')['style'].display = 'block';
+    //document.querySelector('ion-tabbar')['style'].display = 'block';
   }
 }
