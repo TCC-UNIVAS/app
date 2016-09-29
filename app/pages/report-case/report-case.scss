@@ -1,3 +1,15 @@
-.report-case {
+#cardImage {
+    margin: auto;
+    width: 70%;
+    height: 70%;
+    border-radius: 15px;
+}
 
+ion-select {
+    max-width: 100% !important;
+}
+
+#comments {
+    text-align: right !important;
+    float: right;
 }

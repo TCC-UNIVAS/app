@@ -15,7 +15,7 @@ export class HomePage {
   private URL: string;
   constructor(private navCtrl: NavController, private http: Http, private pushService: PushService) {
   
-   this.pushService.init();
+  this.pushService.init();
 
     
   }
