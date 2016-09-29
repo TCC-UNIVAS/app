@@ -38,6 +38,11 @@ export class LoginPage {
       longitude: '',
       sign_date: ''
     };
+    try {
+      this.hideTabs();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   checkEmail(event) {
@@ -106,5 +111,13 @@ export class LoginPage {
 
   registerUser() {
     this.navCtrl.push(RegisterUserPage);
+  }
+
+  hideTabs() {
+    document.querySelector('ion-tabbar')['style'].display = 'none';
+  }
+
+  showTabs() {
+    document.querySelector('ion-tabbar')['style'].display = 'flex';
   }
 }
