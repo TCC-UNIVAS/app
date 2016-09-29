@@ -22,14 +22,26 @@ export class DetailCasePage {
       private casesService: CasesService)
     {
         this.case = navParams.get('caso');
-        this.getImage();
+        this.mountMap();
+        console.log('MAPA: ' + this.case.map);
         this.loading;
     }
 
   getImage() {
+    /**
+     DEPRECATED: com a inserção do mapa a tela de detalhes ficou evidentemente mais legível, 
+     não sendo mais necessário o uso desta função nem do bloco de código HTML abaixo:
+     <div class="box-image-empty" [hidden]="hasImage"></div>
+     */
     if (!this.case.image) {
       this.hasImage = false;
     }
+  }
+
+  mountMap() {
+    this.case.map = 'https://maps.googleapis.com/maps/api/staticmap?center=' + this.case.lat + ',' + 
+      this.case.lng + '&zoom=18&size=400x200' + '&markers=color:red%7Clabel:S%7C' + 
+      this.case.lat + ',' + this.case.lng + '&maptype=roadmap&key=AIzaSyCgNih6IMSYh-o0JkJoQGe9V-F_RQlOoC8';
   }
 
 
