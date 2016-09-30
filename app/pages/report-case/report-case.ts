@@ -36,11 +36,11 @@ export class ReportCasePage {
         // conver the file png to base 64
         // picture: this.reportCase.convertTo64('../img/icon_camera.png')
         picture: 'img/icon_camera.jpg'    
-    }
+    };
   }
 
 
-  eraseImage(){
+  eraseImage() {
     this.data.picture = null;
   }
 
@@ -76,7 +76,7 @@ export class ReportCasePage {
   }
 
 
-  eraseFields(){ 
+  eraseFields() { 
     this.data.location = '';
     this.data.comments = '';
     this.data.picture = 'img/icon_camera.jpg';
