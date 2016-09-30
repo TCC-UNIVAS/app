@@ -13,7 +13,7 @@ export class PushService{
         this.URL = Config.URL;
     }
 
-    init(){
+    init() {
      var push = Push.init({
         android: {
           senderID: "256530126858"
@@ -52,7 +52,7 @@ export class PushService{
         console.log(data.sound);
         console.log(data.image);
         console.log(data.additionalData);*/
-        console.log(data);
+        console.log('Dattta: ' + JSON.stringify(data));
         alert(data.message);
       });
 
