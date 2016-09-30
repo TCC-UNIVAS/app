@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <div>
+  <div [hidden]="!hasImage">
     <ion-img [src]="case.image"></ion-img>
   </div>
   <div>

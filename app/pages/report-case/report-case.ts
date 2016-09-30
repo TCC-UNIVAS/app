@@ -13,7 +13,7 @@ export class ReportCasePage {
   locationInvalid: boolean;
   noLocation: boolean;
    data: {
-    location: string,
+    address: string,
     user_id: number,
     category_id: number
     lat: number,
@@ -22,12 +22,13 @@ export class ReportCasePage {
     picture: string   
   };
 
-  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
-       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private reportCase: ReportCase, private camera: ReportCaseCamera,
+          public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, 
+          private loadingCtrl: LoadingController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
-        location: '',
+        address: '',
         user_id: null,
         category_id: 1,
         comments: '',
@@ -39,27 +40,25 @@ export class ReportCasePage {
     };
   }
 
-
   eraseImage() {
     this.data.picture = null;
   }
 
-
-  saveCase(data) {    
-      this.clearFields(data);
+  saveCase(data) {
+    debugger;    
+      //this.clearFields(data);
       this.presentLoading(true, 'Salvando caso...');
-      let result = this.reportCase.saveInBD(data);      
+      let result = this.reportCase.saveInBD(data);
       this.eraseFields();
     }
   
-
   openMap() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
     }).then(data => {
       let response: any = data;
       response = JSON.parse(response);
-      this.data.location = response.address;
+      this.data.address = response.address;
       this.data.lat = response.latlng.lat;
       this.data.lng = response.latlng.lng;
     });
@@ -77,7 +76,7 @@ export class ReportCasePage {
 
 
   eraseFields() { 
-    this.data.location = '';
+    this.data.address = '';
     this.data.comments = '';
     this.data.picture = 'img/icon_camera.jpg';
   }
