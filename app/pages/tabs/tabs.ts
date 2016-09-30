@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {HomePage} from '../home/home';
+import { MainMap } from '../main/main';
 import {ReportCasePage} from '../report-case/report-case';
 import {CasesPage} from '../cases/cases';
 import {UserPage} from '../user/user';
@@ -8,7 +8,7 @@ import {UserPage} from '../user/user';
   templateUrl: 'build/pages/tabs/tabs.html'
 })
 export class TabsPage {
-  private tabRootHome: any;
+  private tabRootMain: any;
   private tabRootReportCase: any;
   private tabRootCases: any;
   private tabRootUser: any;
@@ -16,7 +16,7 @@ export class TabsPage {
   constructor() {
     // this tells the tabs component which Pages
     // should be each tab's root Page
-    this.tabRootHome = HomePage;
+    this.tabRootMain = MainMap;
     this.tabRootReportCase = ReportCasePage;
     this.tabRootCases = CasesPage;
     this.tabRootUser = UserPage;
