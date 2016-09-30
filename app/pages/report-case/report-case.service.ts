@@ -12,6 +12,7 @@ export class ReportCase {
     }
 
     saveInBD(data, callback) {
+        debugger;
         let dataComplete = this.getOtherFields(data);  
         //test if the user selected no picture, in this case set the field picture to ''
         if (data.picture == 'img/icon_camera.jpg') {
