@@ -5,12 +5,16 @@
     <ion-icon name="locate" item-left></ion-icon>
       Meus casos
   </ion-item>
+  <ion-item (click)="closeCasesPage()">
+    <ion-icon name="compass" item-left></ion-icon>
+      Casos próximos a mim
+  </ion-item>
   <ion-item (click)="allCasesPage()">
     <ion-icon name="pin" item-left></ion-icon>
       Todos os casos
   </ion-item>
   <ion-item (click)="commonDiseasesPage()">
-    <ion-icon name="stats" item-left></ion-icon>
+    <ion-icon name="analytics" item-left></ion-icon>
       Doenças mais frequentes
   </ion-item>
 </ion-list>
