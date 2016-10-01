@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { CasesPage } from './cases';
+import { DetailCasePage } from './detail-case';
 import { MyCasesPage } from './my-cases';
 import { CasesService} from './cases.service';
 
@@ -9,12 +11,76 @@ import { CasesService} from './cases.service';
 })
 
 export class CloseCasesPage {
+ private cases: any;
   private loading: any;
+  public hasCases: Boolean;
 
-  constructor(private navCtrl: NavController, public loadingCtrl: LoadingController, private casesService: CasesService) {
+  constructor(private navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private casesService: CasesService) {
+    this.cases = null;
+    this.loading;
+    this.hasCases = true;
   }
 
-   presentLoading(showLoading, message) {
+  ngOnInit() {
+    this.getCasesFromLastWeekByUserId();
+  }
+
+  getCasesFromLastWeekByUserId() {
+    var user = this.getUserFromLocalstorage();
+
+    if (user.user_id != null) {
+      this.casesService.getCasesFromLastWeekByUserId(user.lat, user.lng, user.user_id).then((data) => {
+        this.cases = data;
+        if (this.cases == 0) { //TODO: COUNT AND DIV COLORFULL
+          this.hasCases = false;
+        }
+      }, (err) => {
+        this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
+        this.navCtrl.push(CasesPage);
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else {
+      this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
+      this.navCtrl.push(CasesPage);
+    }
+  }
+
+  getUserFromLocalstorage() {
+    var userJson = window.localStorage.getItem('User');
+    if (userJson) {
+        return JSON.parse(userJson);
+    } else {
+        return null;
+    }
+  }
+
+  detailCasePage(caso1) {
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(DetailCasePage, {
+        caso: caso1
+      }).then(() => {
+        this.presentLoading(false, 'Carregando');
+      });
+  }
+
+  getImage(image) {
+    if (!image) {
+      return '#ddd';
+    }
+    return 'url(' + image + ') center center / cover no-repeat';
+  }
+
+  showAlert(title, content) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: content,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  presentLoading(showLoading, message) {
      if (showLoading) {
         this.loading = this.loadingCtrl.create({
             content: message,
