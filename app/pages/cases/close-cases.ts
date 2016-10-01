@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, LoadingController } from 'ionic-angular';
 import { CasesPage } from './cases';
-import { DetailCasePage } from './detail-case';
+import { DetailCloseCasesPage } from './detail-close-cases';
 import { MyCasesPage } from './my-cases';
 import { CasesService} from './cases.service';
 
@@ -57,7 +57,7 @@ export class CloseCasesPage {
 
   detailCasePage(caso1) {
     this.presentLoading(true, 'Carregando...');
-    this.navCtrl.push(DetailCasePage, {
+    this.navCtrl.push(DetailCloseCasesPage, {
         caso: caso1
       }).then(() => {
         this.presentLoading(false, 'Carregando');
