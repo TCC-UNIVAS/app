@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Platform } from 'ionic-angular';
 import { CasesPage } from './cases';
 import { DetailCloseCasesPage } from './detail-close-cases';
 import { MyCasesPage } from './my-cases';
@@ -11,14 +11,20 @@ import { CasesService} from './cases.service';
 })
 
 export class CloseCasesPage {
- private cases: any;
+  private cases: any;
+  private countCases: any;
+  private classDiv: any;
   private loading: any;
   public hasCases: Boolean;
 
-  constructor(private navCtrl: NavController, public alertCtrl: AlertController, public loadingCtrl: LoadingController, private casesService: CasesService) {
+  constructor(private navCtrl: NavController, 
+      public alertCtrl: AlertController, 
+      public loadingCtrl: LoadingController, 
+      private platform: Platform,
+      private casesService: CasesService) 
+  {
     this.cases = null;
     this.loading;
-    this.hasCases = true;
   }
 
   ngOnInit() {
@@ -31,9 +37,9 @@ export class CloseCasesPage {
     if (user.user_id != null) {
       this.casesService.getCasesFromLastWeekByUserId(user.lat, user.lng, user.user_id).then((data) => {
         this.cases = data;
-        if (this.cases == 0) { //TODO: COUNT AND DIV COLORFULL
-          this.hasCases = false;
-        }
+        this.setCategoryName();
+        this.countCases = this.cases.length;
+        this.setClassDivBasedCount();
       }, (err) => {
         this.showAlert('Atenção!', 'Não foi possível carregar os dados.Tente novamente mais tarde!');
         this.navCtrl.push(CasesPage);
@@ -62,6 +68,32 @@ export class CloseCasesPage {
       }).then(() => {
         this.presentLoading(false, 'Carregando');
       });
+  }
+
+  setCategoryName() {
+    for (var i = 0; i < this.cases.length; i++) {
+      let category = this.cases[i].category_id;
+
+      if (category == 1) {
+        this.cases[i].category_name = 'Focos do mosquito Aedes aegypti';
+      } else if (category == 2) {
+        this.cases[i].category_name = 'Dengue';
+      } else if (category == 3) {
+        this.cases[i].category_name = 'Zica';
+      } else {
+        this.cases[i].category_name = 'Chikungunya';
+      } 
+    }
+  }
+
+  setClassDivBasedCount() {
+    if (this.countCases == 0) {
+      this.classDiv = 'box-green';
+    } else if (this.countCases > 0 && this.countCases <= 3) {
+      this.classDiv = 'box-yellow';
+    } else {
+      this.classDiv = 'box-red';
+    }
   }
 
   getImage(image) {

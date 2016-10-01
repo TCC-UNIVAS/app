@@ -30,11 +30,39 @@
     height: 400px;
 }
 
-.box-content-qnt-cases {
+.box-content-mesage {
+    padding: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.box-green {
     padding: 10px;
     width: 100%;
     height: 70px;
-    background-color: steelblue;
+    background-color: green;
+    color: white;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.box-yellow {
+    padding: 10px;
+    width: 100%;
+    height: 70px;
+    background-color: yellow;
+    color: black;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.box-red {
+    padding: 10px;
+    width: 100%;
+    height: 70px;
+    background-color: red;
     color: mintcream;
     text-align: center;
     margin-bottom: 10px;

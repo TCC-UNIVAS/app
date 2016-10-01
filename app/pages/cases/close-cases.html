@@ -1,12 +1,12 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Próximos</ion-title>
+    <ion-title>Proximidades</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content >
-    <ion-card-content class="box-content-qnt-cases">
-        <p>XX casos nos últimos 7 dias</p>
+    <ion-card-content class="{{classDiv}}">
+        <p>{{countCases}} casos registrados nos últimos 7 dias</p>
     </ion-card-content>
     <ion-list *ngFor="let case of cases" tappable (click)="detailCasePage(case)">
         <ion-item no-lines class="item-list">

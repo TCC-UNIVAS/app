@@ -6,6 +6,7 @@ import { CasesService } from './cases.service';
 import { Geolocation } from 'ionic-native';
 
 declare var google: any;
+declare var geolib: any;
 
 @Component({
   templateUrl: 'build/pages/cases/detail-close-cases.html',
@@ -14,6 +15,7 @@ declare var google: any;
 
 export class DetailCloseCasesPage {
   private case: any;
+  user: any;
   directions: any;
   map: any;
 
@@ -25,6 +27,7 @@ export class DetailCloseCasesPage {
       private casesService: CasesService)
     {
         this.case = navParams.get('caso');
+        this.user = this.getUserFromLocalstorage();
         this.initPage();
     }
 
@@ -33,12 +36,14 @@ export class DetailCloseCasesPage {
 
         this.platform.ready().then(() => {
             this.loadMap();
+            this.mountMessageFromCategory();
+            // this.case.distance = this.getDistance(
+            //     {latitude: this.user.lat, longitude: this.user.lng},
+            //     {latitude: this.directions.latitude, longitude: this.directions.longitude});
         });
     }
 
     private loadMap() {
-        let user = this.getUserFromLocalstorage();
-
         let mapOptions = {
             zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -47,7 +52,7 @@ export class DetailCloseCasesPage {
 
         this.map = new google.maps.Map(mapDiv, mapOptions);
         
-        this.calculateRoute(user.lat, user.lng);
+        this.calculateRoute(this.user.lat, this.user.lng);
     }
 
     private calculateRoute(latitude: number, longitude: number) {
@@ -70,6 +75,23 @@ export class DetailCloseCasesPage {
                directionRenderer.setDirections(result); 
             }
         });
+    }
+
+    private getDistance(origin, destination) {
+        return geolib.getDistance(origin, destination);
+    }
+
+    mountMessageFromCategory() {
+        this.case.distance = this.getDistance(
+                {latitude: this.user.lat, longitude: this.user.lng},
+                {latitude: this.directions.latitude, longitude: this.directions.longitude});
+        if (this.case.category_id != 1) {
+            this.case.category_description = 'Suspeita de ' + this.case.category_name + ' a ' + this.case.distance +
+            ' metros de sua residência.';
+        } else {
+            this.case.category_description = this.case.category_name + ' a ' + this.case.distance +
+            ' metros de sua residência.';
+        }
     }
 
     getUserFromLocalstorage() {
