@@ -3,5 +3,6 @@
   "devDependencies": {},
   "globalDependencies": {
     "es6-shim": "registry:dt/es6-shim#0.31.2+20160602141504"
+    // "markerclustererplus": "registry:dt/markerclustererplus#2.1.1+20160316155526"
   }
 }

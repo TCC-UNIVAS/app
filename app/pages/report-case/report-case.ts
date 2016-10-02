@@ -13,7 +13,7 @@ export class ReportCasePage {
   locationInvalid: boolean;
   noLocation: boolean;
    data: {
-    location: string,
+    address: string,
     user_id: number,
     category_id: number
     lat: number,
@@ -27,7 +27,7 @@ export class ReportCasePage {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
-        location: '',
+        address: '',
         user_id: null,
         category_id: 1,
         comments: '',
@@ -46,10 +46,9 @@ export class ReportCasePage {
 
 
   saveCase(data) {    
-      this.clearFields(data);
       this.presentLoading(true, 'Salvando caso...');
-      let result = this.reportCase.saveInBD(data);      
-      this.eraseFields();
+      let result = this.reportCase.saveInBD(data, this.eraseFields);      
+      //this.eraseFields();
     }
   
 
@@ -59,7 +58,7 @@ export class ReportCasePage {
     }).then(data => {
       let response: any = data;
       response = JSON.parse(response);
-      this.data.location = response.address;
+      this.data.address = response.address;
       this.data.lat = response.latlng.lat;
       this.data.lng = response.latlng.lng;
     });
@@ -76,16 +75,12 @@ export class ReportCasePage {
   }
 
 
-  eraseFields(){ 
-    this.data.location = '';
-    this.data.comments = '';
-    this.data.picture = 'img/icon_camera.jpg';
+  eraseFields(data){ 
+    data.address = '';
+    data.comments = '';
+    data.picture = 'img/icon_camera.jpg';
   }
 
-
-  clearFields(data) {
-    delete data['location'];
-  }
 
  presentLoading(showLoading, message) {
      var loader: any;
