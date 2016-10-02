@@ -44,12 +44,10 @@ export class ReportCasePage {
     this.data.picture = null;
   }
 
-  saveCase(data) {
-    debugger;    
-      //this.clearFields(data);
+  saveCase(data) {    
       this.presentLoading(true, 'Salvando caso...');
-      let result = this.reportCase.saveInBD(data);
-      this.eraseFields();
+      let result = this.reportCase.saveInBD(data, this.eraseFields);      
+      //this.eraseFields();
     }
   
   openMap() {
@@ -74,16 +72,10 @@ export class ReportCasePage {
     alert.present();
   }
 
-
-  eraseFields() { 
-    this.data.address = '';
-    this.data.comments = '';
-    this.data.picture = 'img/icon_camera.jpg';
-  }
-
-
-  clearFields(data) {
-    delete data['location'];
+  eraseFields(data) { 
+    data.address = '';
+    data.comments = '';
+    data.picture = 'img/icon_camera.jpg';
   }
 
  presentLoading(showLoading, message) {
