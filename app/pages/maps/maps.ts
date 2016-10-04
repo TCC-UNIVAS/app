@@ -65,7 +65,7 @@ export class MapsPage implements OnInit {
     // }, 200);
     }   
 
-    creatMap(myLocation) {
+    createMap(myLocation) {
         let mapOptions = {
             zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
