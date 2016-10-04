@@ -76,6 +76,7 @@ export class MapsPage implements OnInit {
         google.maps.event.addListener(map, 'click', function (element) {
             that.addMarker(element, map, that.markers);
         });
+        console.log(this.map);
     }
 
     addMarker(myLocation, map, markers) {
@@ -104,7 +105,7 @@ export class MapsPage implements OnInit {
                         var opts = {
                             map: map,
                             animation: google.maps.Animation.DROP,
-                            position: location
+                            position: location                            
                         };
                         var marker = new google.maps.Marker(opts);
 
