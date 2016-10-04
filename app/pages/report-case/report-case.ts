@@ -19,12 +19,12 @@ export class ReportCasePage {
     lat: number,
     lng: number,
     comments: string,
-    picture: string   
+    picture: string,
+    neighborhood: string
   };
 
-  constructor(private navCtrl: NavController, private reportCase: ReportCase, private camera: ReportCaseCamera,
-          public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, 
-          private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
+       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, private loadingCtrl: LoadingController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
@@ -34,6 +34,7 @@ export class ReportCasePage {
         comments: '',
         lat: null,
         lng: null,
+        neighborhood: '',
         // conver the file png to base 64
         // picture: this.reportCase.convertTo64('../img/icon_camera.png')
         picture: 'img/icon_camera.jpg'    
@@ -59,10 +60,10 @@ export class ReportCasePage {
       this.data.address = response.address;
       this.data.lat = response.latlng.lat;
       this.data.lng = response.latlng.lng;
+      this.data.neighborhood = response.neighborhood;
     });
   }
   
-
   showAlert(title, content) {
     let alert = this.alertCtrl.create({
       title: title,
@@ -87,7 +88,7 @@ export class ReportCasePage {
             duration: 2500
         });
         loader.present();
-     } 
+     }
  }
 
   presentActionSheet() {
@@ -99,12 +100,12 @@ export class ReportCasePage {
           handler: () => {
             this.camera.takePicture(this.data);
           }
-        },{
+        }, {
           text: 'Selecionar da galeria',
           handler: () => {
             this.camera.getFromGallery(this.data);
           }
-        },{
+        }, {
           text: 'Apagar foto',
           role: 'destructive',
           handler: () => {

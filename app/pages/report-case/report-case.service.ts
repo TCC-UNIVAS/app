@@ -64,7 +64,3 @@ export class ReportCase {
         };
     }
 }
-
-
-
- 

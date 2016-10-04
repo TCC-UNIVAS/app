@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar primary>
+        <ion-title>Casos frequentes</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <table>
+        <tr id="header">
+            <th class="firstTd">
+                Bairro
+            </th>
+            <th>
+                Foco de mosquitos
+            </th>
+            <th>
+                Dengue
+            </th>
+            <th>
+                Zika
+            </th>
+            <th>
+                Chikungunya
+            </th>
+        </tr>
+        <tr *ngFor="let item of items">
+            <td class="firstTd">
+                {{item.neighborhood}}
+            </td>
+            <td>
+                {{item.foco}}
+            </td>
+            <td>
+                {{item.dengue}}
+            </td>
+            <td>
+                {{item.zika}}
+            </td>
+            <td>
+                {{item.chikungunya}}
+            </td>
+        </tr>
+    </table>
+</ion-content>

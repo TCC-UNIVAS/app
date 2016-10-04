@@ -1,0 +1,31 @@
+table {
+    border:1px solid #C0C0C0;
+    border-collapse:collapse;
+    padding:5px;
+    text-align: center;
+    margin-top: 30px;
+}
+table th {
+    border:1px solid #C0C0C0;
+    padding:5px;
+    background:#F0F0F0;
+}
+
+th {
+     background:#f99999 !important;
+}
+
+table td {
+    border:1px solid #C0C0C0;
+    padding:5px;
+    width: 20%;
+}
+tr {
+    height: 35px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+ .firstTd {
+     width: 30% !important;
+ }
