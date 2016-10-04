@@ -2,6 +2,11 @@
     
 }
 
+#mapAllCases {
+    width:100%;
+    height:100%;
+}
+
 .content-padding {
     padding: 12px;
 }
@@ -42,28 +47,48 @@
     padding: 10px;
     width: 100%;
     height: 70px;
-    background-color: green;
-    color: white;
+    background-color: #DFF0D8;
+    border-bottom: 2px solid #cef4be;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .box-yellow {
     padding: 10px;
     width: 100%;
     height: 70px;
-    background-color: yellow;
-    color: black;
+    background-color: #FCF8E3;
+    border-bottom: 2px solid #fcf0b5;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 16px;
 }
 
 .box-red {
     padding: 10px;
     width: 100%;
-    height: 70px;
-    background-color: red;
-    color: mintcream;
+    height: 80px;
+    background-color: #F2DEDE;
+    border-bottom: 2px solid #fcb0b0;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#legend-all-cases {
+  background: white;
+  padding: 10px;
+  top: 5px !important;
+  right: 5px !important;
+}
+.display-flex-all {
+  display: flex;
+}
+.legend-box-all {
+  width: 10px;
+  height: 10px;
+  border: 1px solid;
+  margin-top: 2px;
+  margin-right: 5px;
 }
