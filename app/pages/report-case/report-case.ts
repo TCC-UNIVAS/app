@@ -38,11 +38,10 @@ export class ReportCasePage {
         // conver the file png to base 64
         // picture: this.reportCase.convertTo64('../img/icon_camera.png')
         picture: 'img/icon_camera.jpg'    
-    }
+    };
   }
 
-
-  eraseImage(){
+  eraseImage() {
     this.data.picture = null;
   }
 
@@ -52,7 +51,6 @@ export class ReportCasePage {
       //this.eraseFields();
     }
   
-
   openMap() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
@@ -66,7 +64,6 @@ export class ReportCasePage {
     });
   }
   
-
   showAlert(title, content) {
     let alert = this.alertCtrl.create({
       title: title,
@@ -91,7 +88,7 @@ export class ReportCasePage {
             duration: 2500
         });
         loader.present();
-     } 
+     }
  }
 
   presentActionSheet() {
@@ -103,12 +100,12 @@ export class ReportCasePage {
           handler: () => {
             this.camera.takePicture(this.data);
           }
-        },{
+        }, {
           text: 'Selecionar da galeria',
           handler: () => {
             this.camera.getFromGallery(this.data);
           }
-        },{
+        }, {
           text: 'Apagar foto',
           role: 'destructive',
           handler: () => {

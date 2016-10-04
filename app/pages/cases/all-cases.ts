@@ -60,7 +60,7 @@ export class AllCasesPage {
         let iconPath;
         switch (mark.category_id) {
           case 1:
-            iconPath = 'img/case_foco.png';
+            iconPath = 'img/icon_mosquito.png';
             break;
           case 2:
             iconPath = 'img/case_dengue.png';

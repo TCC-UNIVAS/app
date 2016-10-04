@@ -30,7 +30,6 @@ export class MyCasesPage {
     if (userId != null) {
       this.casesService.getByUserId(userId).then((data) => {
         this.cases = data;
-        console.log(this.cases[0].create_date);
        // this.formatDate();
         if (this.cases == 0) {
           this.hasCases = false;

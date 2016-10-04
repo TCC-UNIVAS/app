@@ -36,19 +36,19 @@ export class HomePage {
   }
   
   loadPosition() {
-    setTimeout(() => {
-      new Promise((resolve, reject) => {
-        let myLocation = { lat: -22.2262223, lng: -45.9316904 };
-        this.createMap(myLocation);
-      });
-      //    Geolocation.getCurrentPosition().then(result => {
-      //          let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
-      //         this.createMap(myLocation);
-      //     }, (err) => {
-      //         console.log(err);
+    //setTimeout(() => {
+      // new Promise((resolve, reject) => {
+      //   let myLocation = { lat: -22.2262223, lng: -45.9316904 };
+      //   this.createMap(myLocation);
       // });
+         Geolocation.getCurrentPosition().then(result => {
+               let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
+              this.createMap(myLocation);
+          }, (err) => {
+              console.log(err);
+      });
 
-    }, 200);
+    //}, 200);
   }
 
   createMap(myLocation) {
@@ -80,7 +80,7 @@ export class HomePage {
         let iconPath;
         switch (mark.category_id) {
           case 1:
-            iconPath = 'img/case_foco.png';
+            iconPath = 'img/icon_mosquito.png';
             break;
           case 2:
             iconPath = 'img/case_dengue.png';
