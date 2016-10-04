@@ -5,7 +5,6 @@ import { Push } from 'ionic-native';
 import { HomeService } from './home.service';
 import { DetailCasePage } from '../cases/detail-case';
 
-
 declare var google: any;
 declare var MarkerClusterer: any;
 
@@ -19,13 +18,9 @@ export class HomePage {
   private mapHome: any;
   private URL: string;
 
- //constructor(private navCtrl: NavController, private http: Http, private pushService: PushService) {
- //this.pushService.init();
-
-
   constructor(private navCtrl: NavController, private homeService: HomeService, private pushService: PushService) {
     //init the push service
-    ///this.pushService.init();
+    this.pushService.init();
     this.markers = [];
     this.mapHome;
    // this.loadPosition();
