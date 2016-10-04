@@ -30,6 +30,7 @@ export class MyCasesPage {
     if (userId != null) {
       this.casesService.getByUserId(userId).then((data) => {
         this.cases = data;
+       // this.formatDate();
         if (this.cases == 0) {
           this.hasCases = false;
         }
@@ -48,19 +49,31 @@ export class MyCasesPage {
   getUserIdFromLocalstorage() {
     var userJson = window.localStorage.getItem('User');
     if (userJson) {
-        return JSON.parse(userJson).user_id;
+      return JSON.parse(userJson).user_id;
     } else {
-        return null;
+      return null;
     }
   }
 
+  formatDate() {
+    console.log(this.cases);
+    console.log('original  ' +this.cases.create_date);
+    var d = new Date(this.cases.create_date);
+    var date = [d.getMonth() + 1,
+        d.getDate(),
+        d.getFullYear()].join('/') + '    ' +
+        [d.getHours(),
+          d.getMinutes()].join(':');
+    this.cases.create_date = date;
+     console.log('fixed  ' +this.cases.create_date);
+  }
   detailCasePage(caso1) {
     this.presentLoading(true, 'Carregando...');
     this.navCtrl.push(DetailCasePage, {
-        caso: caso1
-      }).then(() => {
-        this.presentLoading(false, 'Carregando');
-      });
+      caso: caso1
+    }).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
   getImage(image) {
@@ -80,14 +93,14 @@ export class MyCasesPage {
   }
 
   presentLoading(showLoading, message) {
-     if (showLoading) {
-        this.loading = this.loadingCtrl.create({
-            content: message,
-            dismissOnPageChange: false
-        });
-        this.loading.present();
-     } else {
-        this.loading.dismiss();
-     }
+    if (showLoading) {
+      this.loading = this.loadingCtrl.create({
+        content: message,
+        dismissOnPageChange: false
+      });
+      this.loading.present();
+    } else {
+      this.loading.dismiss();
+    }
   }
 }

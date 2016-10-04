@@ -18,6 +18,7 @@ export class MapsPage implements OnInit {
     private loading: any;
     private presentLoading: any;
     private alertCtrl: any;
+    private neighborhood: string;
 
     constructor(private nav: NavController, public param: NavParams, private alert: AlertController) {
         this.nav = nav;
@@ -28,13 +29,14 @@ export class MapsPage implements OnInit {
         this.marker;
         this.markers = [];
         this.locationClicked;
+        this.neighborhood;
     }
 
     ngOnInit() { }
 
     savePosition() {
         if (this.marker != undefined) {
-            let obj = { address: this.marker, latlng: this.locationClicked };
+            let obj = { address: this.marker, latlng: this.locationClicked, neighborhood: this.neighborhood };
             this.param.get('result')(JSON.stringify(obj));
             this.nav.pop();
         } else {
@@ -48,22 +50,22 @@ export class MapsPage implements OnInit {
     }
 
     loadPosition() {
-        setTimeout(() => {
-             new Promise((resolve, reject) => {
-                let myLocation = { lat: -22.2262223, lng: -45.9316904 };
-                this.creatMap(myLocation);
-            });
-    //    Geolocation.getCurrentPosition().then((position) => {
-    //         this.myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //         this.creatMap(this.myLocation);
-    //     }, (err) => {
-    //         console.log(err);
-    // });
+        // setTimeout(() => {
+    //   new Promise((resolve, reject) => {
+    //     let myLocation = { lat: -22.2262223, lng: -45.9316904 };
+    //     this.createMap(myLocation);
+    //   });
+         Geolocation.getCurrentPosition().then(result => {
+               let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
+              this.createMap(myLocation);
+          }, (err) => {
+              console.log(err);
+      });
 
-        }, 200);
+    // }, 200);
     }   
 
-    creatMap(myLocation) {
+    createMap(myLocation) {
         let mapOptions = {
             zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -118,6 +120,7 @@ export class MapsPage implements OnInit {
                         }
 
                         that.marker = results[0].formatted_address;
+                        that.neighborhood = results[0].address_components[2].long_name;
                         let content =  '<h5>' + results[0].formatted_address + '</h5>';
                         let infoWindow = new google.maps.InfoWindow({
                             content: content
