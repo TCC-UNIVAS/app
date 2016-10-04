@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Gráficos</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <!--<ion-grid id="table">
+        <ion-row id="header">
+            <ion-col>
+                Bairro
+            </ion-col>
+            <ion-col>
+                Foco de mosquitos
+            </ion-col>
+            <ion-col>
+                Dengue
+            </ion-col>
+            <ion-col>
+                Zika
+            </ion-col>
+            <ion-col>
+                Chikungunya
+            </ion-col>
+        </ion-row>
+        <ion-row *ngFor="let item of items">
+            <ion-col>
+                {{item.neighborhood}}
+            </ion-col>
+            <ion-col>
+                {{item.foco}}
+            </ion-col>
+            <ion-col>
+                {{item.dengue}}
+            </ion-col>
+            <ion-col>
+                {{item.zika}}
+            </ion-col>
+            <ion-col>
+                {{item.chikungunya}}
+            </ion-col>
+        </ion-row>
+    </ion-grid>-->
+    <table>
+        <tr id="header">
+            <th class="firstTd">
+                Bairro
+            </th>
+            <th>
+                Foco de mosquitos
+            </th>
+            <th>
+                Dengue
+            </th>
+            <th>
+                Zika
+            </th>
+            <th>
+                Chikungunya
+            </th>
+        </tr>
+        <tr *ngFor="let item of items">
+            <td class="firstTd">
+                {{item.neighborhood}}
+            </td>
+            <td>
+                {{item.foco}}
+            </td>
+            <td>
+                {{item.dengue}}
+            </td>
+            <td>
+                {{item.zika}}
+            </td>
+            <td>
+                {{item.chikungunya}}
+            </td>
+        </tr>
+    </table>
+</ion-content>

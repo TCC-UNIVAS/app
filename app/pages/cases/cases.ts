@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { MyCasesPage } from './my-cases';
 import { CloseCasesPage } from './close-cases';
 import { CasesService} from './cases.service';
+import { GraphsPage } from './graphs-cases';
 
 @Component({
   templateUrl: 'build/pages/cases/cases.html',
@@ -34,19 +35,19 @@ export class CasesPage {
   }
 
   allCasesPage() {
-    alert('In Progress...');
-    // this.presentLoading(true, 'Carregando...');
-    // this.navCtrl.push(MyCasesPage).then(() => {
-    //   this.presentLoading(false, 'Carregando');
-    // });
+    //alert('In Progress...');
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(HomePage).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
   commonDiseasesPage() {
-    alert('In Progress...');
-    // this.presentLoading(true, 'Carregando...');
-    // this.navCtrl.push(MyCasesPage).then(() => {
-    //   this.presentLoading(false, 'Carregando');
-    // });
+   // alert('In Progress...');
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(GraphsPage).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
   }
 
    presentLoading(showLoading, message) {

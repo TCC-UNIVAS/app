@@ -19,12 +19,12 @@ export class ReportCasePage {
     lat: number,
     lng: number,
     comments: string,
-    picture: string   
+    picture: string,
+    neighborhood: string
   };
 
-  constructor(private navCtrl: NavController, private reportCase: ReportCase, private camera: ReportCaseCamera,
-          public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, 
-          private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
+       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, private loadingCtrl: LoadingController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
@@ -34,13 +34,15 @@ export class ReportCasePage {
         comments: '',
         lat: null,
         lng: null,
+        neighborhood: '',
         // conver the file png to base 64
         // picture: this.reportCase.convertTo64('../img/icon_camera.png')
         picture: 'img/icon_camera.jpg'    
-    };
+    }
   }
 
-  eraseImage() {
+
+  eraseImage(){
     this.data.picture = null;
   }
 
@@ -50,6 +52,7 @@ export class ReportCasePage {
       //this.eraseFields();
     }
   
+
   openMap() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
@@ -59,6 +62,7 @@ export class ReportCasePage {
       this.data.address = response.address;
       this.data.lat = response.latlng.lat;
       this.data.lng = response.latlng.lng;
+      this.data.neighborhood = response.neighborhood;
     });
   }
   
