@@ -1,11 +1,20 @@
 <ion-header>
   <ion-navbar primary>
-    <ion-title>{{ case.name }}</ion-title>
+    <ion-title>{{ case.create_date }}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div [hidden]="!hasImage">
+  <ion-card-content class="box-content-mesage">
+    <h4 class="text-center">Fique Atento!</h4>
+    <h5>{{ case.category_description }}</h5>
+  </ion-card-content>
+  <div class="box-content-map">
+    <div id="route-map">
+    </div>
+  </div>
+    
+  <!--<div [hidden]="!hasImage">
     <ion-img [src]="case.image"></ion-img>
   </div>
   <div>
@@ -18,5 +27,5 @@
     <p>{{ case.address }}</p>
     <p class="text-bold">Comentário:</p>
     <p>{{case.comments}}</p>
-  </div>
+  </div>-->
 </ion-content>

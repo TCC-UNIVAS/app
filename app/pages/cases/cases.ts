@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 import { MyCasesPage } from './my-cases';
+import { CloseCasesPage } from './close-cases';
 import { CasesService} from './cases.service';
 
 @Component({
@@ -24,18 +26,27 @@ export class CasesPage {
     });
   }
 
-  allCasesPage() {
+  closeCasesPage() {
     this.presentLoading(true, 'Carregando...');
-    this.navCtrl.push(MyCasesPage).then(() => {
+    this.navCtrl.push(CloseCasesPage).then(() => {
       this.presentLoading(false, 'Carregando');
     });
   }
 
+  allCasesPage() {
+    alert('In Progress...');
+    // this.presentLoading(true, 'Carregando...');
+    // this.navCtrl.push(MyCasesPage).then(() => {
+    //   this.presentLoading(false, 'Carregando');
+    // });
+  }
+
   commonDiseasesPage() {
-    this.presentLoading(true, 'Carregando...');
-    this.navCtrl.push(MyCasesPage).then(() => {
-      this.presentLoading(false, 'Carregando');
-    });
+    alert('In Progress...');
+    // this.presentLoading(true, 'Carregando...');
+    // this.navCtrl.push(MyCasesPage).then(() => {
+    //   this.presentLoading(false, 'Carregando');
+    // });
   }
 
    presentLoading(showLoading, message) {

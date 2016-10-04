@@ -14,10 +14,9 @@ export class ReportCase {
     saveInBD(data, callback) {
         let dataComplete = this.getOtherFields(data);  
         //test if the user selected no picture, in this case set the field picture to ''
-        if(data.picture == 'img/icon_camera.jpg'){
+        if (data.picture == 'img/icon_camera.jpg') {
            this.convertTo64(data, callback);
-        }         
-        else{
+        } else {
             this.sendToServer(data, callback);
         }
     }
@@ -41,14 +40,14 @@ export class ReportCase {
         return Promise.reject(error.message || error);
     }
 
-    getOtherFields(data){
+    getOtherFields(data) {
         let user = JSON.parse(window.localStorage.getItem("User"));
         data.user_id = user.user_id;
         return data;
     }    
 
     // convert the default image png to base64
-    convertTo64(data, callback){
+    convertTo64(data, callback) {
         var img = data.picture;
         var xhr = new XMLHttpRequest();
         xhr.responseType = 'blob';
@@ -58,10 +57,9 @@ export class ReportCase {
         xhr.onload = function() {
             var reader = new FileReader();
             reader.onloadend = () => {
-                //console.log(reader.result);
                 data.picture = reader.result;
                 _this.sendToServer(data, callback);
-            }
+            };
             reader.readAsDataURL(xhr.response);
         };
     }

@@ -21,6 +21,16 @@ export class CasesService {
             .catch(this.handleError);
     }
 
+    getCasesFromLastWeekByUserId(lat, lng, userId) {
+        var url = this.URL + '/cases/lastWeek/?lat=' + lat + '&lng=' + lng + '&userId=' + userId;
+        var headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+        return this.http.get(url, { headers: headers })
+            .toPromise()
+            .then(response => response.json())
+            .catch(this.handleError);
+    }
+
     handleError(error: any) {
         console.info('An error occurred', error);
         return Promise.reject(error.message || error);

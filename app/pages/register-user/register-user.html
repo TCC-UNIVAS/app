@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar primary>
     <ion-title>Quero me cadastrar</ion-title>
   </ion-navbar>
 </ion-header>
@@ -32,7 +32,7 @@
                 (input)="checkPasswordEquals($event,user)" [class.invalid]="passwordInvalid" required></ion-input>
             </ion-item>
         </ion-list>
-        <input [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Criar conta" 
+        <input secondary [disabled]="passwordInvalid || emailInvalid || confirmPasswordInvalid" type="submit" value="Criar conta" 
           class="button button-royal button-large button-block"/>
     </form>
 </ion-content>

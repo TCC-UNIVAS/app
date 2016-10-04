@@ -22,8 +22,9 @@ export class ReportCasePage {
     picture: string   
   };
 
-  constructor(private navCtrl: NavController, private reportCase: ReportCase,private camera: ReportCaseCamera,
-       public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private reportCase: ReportCase, private camera: ReportCaseCamera,
+          public alertCtrl: AlertController, private actionSheetCtrl: ActionSheetController, 
+          private loadingCtrl: LoadingController) {
     this.locationInvalid = true;
     this.noLocation = true;
     this.data = {
@@ -36,14 +37,12 @@ export class ReportCasePage {
         // conver the file png to base 64
         // picture: this.reportCase.convertTo64('../img/icon_camera.png')
         picture: 'img/icon_camera.jpg'    
-    }
+    };
   }
 
-
-  eraseImage(){
+  eraseImage() {
     this.data.picture = null;
   }
-
 
   saveCase(data) {    
       this.presentLoading(true, 'Salvando caso...');
@@ -51,7 +50,6 @@ export class ReportCasePage {
       //this.eraseFields();
     }
   
-
   openMap() {
     new Promise((resolve, reject) => {
       this.navCtrl.push(MapsPage, { result: resolve }).then(() => { });
@@ -74,13 +72,11 @@ export class ReportCasePage {
     alert.present();
   }
 
-
-  eraseFields(data){ 
+  eraseFields(data) { 
     data.address = '';
     data.comments = '';
     data.picture = 'img/icon_camera.jpg';
   }
-
 
  presentLoading(showLoading, message) {
      var loader: any;

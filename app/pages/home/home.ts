@@ -5,7 +5,6 @@ import { Push } from 'ionic-native';
 import { HomeService } from './home.service';
 import { DetailCasePage } from '../cases/detail-case';
 
-
 declare var google: any;
 declare var MarkerClusterer: any;
 
@@ -21,7 +20,7 @@ export class HomePage {
 
   constructor(private navCtrl: NavController, private homeService: HomeService, private pushService: PushService) {
     //init the push service
-   // this.pushService.init();  
+    this.pushService.init();
     this.markers = [];
     this.mapHome;
    // this.loadPosition();
@@ -29,15 +28,13 @@ export class HomePage {
 
   //this will load marker always whem open this page
   ionViewWillEnter() {
-    if(this.mapHome){
+    if (this.mapHome) {
       this.loadMarkers();
-    }
-    else{
+    } else {
       this.loadPosition();
     }
   }
   
-
   loadPosition() {
     setTimeout(() => {
       new Promise((resolve, reject) => {
@@ -62,13 +59,10 @@ export class HomePage {
     };
     this.mapHome = new google.maps.Map(document.getElementById('mapHome'), mapOptions);
 
-
     // var data = this.homeService.getMarkers().then((data) => {
     this.loadMarkers();
     //});
   }
-
-
 
   loadMarkers() {
     this.markers = [];
@@ -141,5 +135,4 @@ export class HomePage {
    
   });
   }
-
 }
