@@ -1,21 +1,23 @@
-<ion-content padding>
-  <div style="width: 300px; height: 273px;"></div>
+<ion-content class="cases">
+  <div style="width: 300px; height: 200px;"></div>
   <ion-list>
-  <ion-item (click)="myCasesPage()">
+    
+  <ion-item (click)="myCasesPage()" class="div-list cases">
+    <br>
     <ion-icon name="locate" item-left></ion-icon>
-      Meus casos
+      <h2>Meus casos</h2>
   </ion-item>
-  <ion-item (click)="closeCasesPage()">
+  <ion-item (click)="closeCasesPage()" class="div-list cases">
     <ion-icon name="compass" item-left></ion-icon>
-      Casos próximos a minha casa
+      <h2>Casos próximos a minha casa</h2>
   </ion-item>
-  <ion-item (click)="allCasesPage()">
+  <ion-item (click)="allCasesPage()" class="div-list cases">
     <ion-icon name="pin" item-left></ion-icon>
-      Todos os casos
+      <h2>Todos os casos</h2>
   </ion-item>
-  <ion-item (click)="commonDiseasesPage()">
+  <ion-item (click)="commonDiseasesPage()" class="div-list cases">
     <ion-icon name="analytics" item-left></ion-icon>
-      Casos mais frequentes
+      <h2>Casos mais frequentes</h2>
   </ion-item>
 </ion-list>
 </ion-content>
