@@ -19,7 +19,6 @@ export class HomePage {
   private URL: string;
 
   constructor(private navCtrl: NavController, private homeService: HomeService, private pushService: PushService) {
-    //init the push service
     this.pushService.init();
     this.markers = [];
     this.mapHome;
@@ -59,8 +58,11 @@ export class HomePage {
     };
     this.mapHome = new google.maps.Map(document.getElementById('mapHome'), mapOptions);
 
-    this.mapHome.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+    this.mapHome.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(
     document.getElementById('legend'));
+
+    this.mapHome.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+    document.getElementById('closeYou'));
 
     // var data = this.homeService.getMarkers().then((data) => {
     this.loadMarkers();
@@ -69,14 +71,11 @@ export class HomePage {
 
   loadMarkers() {
     this.markers = [];
-    //  console.log('marker vazio');
-    // console.log(this.markers);
     var data = this.homeService.getMarkers().then((markers) => {
 
       for (var mark of markers) {
         let location = { lat: mark.lat, lng: mark.lng };
 
-        //select the icon by category
         let iconPath;
         switch (mark.category_id) {
           case 1:
@@ -113,7 +112,6 @@ export class HomePage {
           comments: mark.comments,
           neighborhood: mark.neighborhood,
           name: mark.name
-          //map: this.mapHome
         });
 
 
@@ -126,16 +124,10 @@ export class HomePage {
           });
         })(newMarker);
 
-
-        //add the new marker into the array markers
         this.markers.push(newMarker);
-
       }
 
-      // console.log('markers pronto' );
-      // console.log(this.markers);
-      var markerCluster = new MarkerClusterer(this.mapHome, this.markers, { imagePath: 'img/m/m' });
-   
+      var markerCluster = new MarkerClusterer(this.mapHome, this.markers, { imagePath: 'img/m/m' });   
   });
   }
 }

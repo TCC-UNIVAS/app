@@ -28,7 +28,7 @@ export class ReportCase {
         headers.append('Content-Type', 'application/json');
         return this.http.post(url, data, { headers: headers })
             .toPromise()
-            .then(()=>{
+            .then(() => {
                 response => response.json();
                 callback(data);
             })
