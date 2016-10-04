@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { PushService } from '../push/push.service';
-import { Push } from 'ionic-native';
+import { Push, Geolocation } from 'ionic-native';
 import { HomeService } from './home.service';
 import { DetailCasePage } from '../cases/detail-case';
 
@@ -36,19 +36,19 @@ export class HomePage {
   }
   
   loadPosition() {
-    setTimeout(() => {
-      new Promise((resolve, reject) => {
-        let myLocation = { lat: -22.2262223, lng: -45.9316904 };
-        this.createMap(myLocation);
+    // setTimeout(() => {
+    //   new Promise((resolve, reject) => {
+    //     let myLocation = { lat: -22.2262223, lng: -45.9316904 };
+    //     this.createMap(myLocation);
+    //   });
+         Geolocation.getCurrentPosition().then(result => {
+               let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
+              this.createMap(myLocation);
+          }, (err) => {
+              console.log(err);
       });
-      //    Geolocation.getCurrentPosition().then((position) => {
-      //         this.myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      //         this.creatMap(this.myLocation);
-      //     }, (err) => {
-      //         console.log(err);
-      // });
 
-    }, 200);
+    // }, 200);
   }
 
   createMap(myLocation) {
@@ -66,8 +66,8 @@ export class HomePage {
 
   loadMarkers() {
     this.markers = [];
-     console.log('marker vazio');
-    console.log(this.markers);
+    //  console.log('marker vazio');
+    // console.log(this.markers);
     var data = this.homeService.getMarkers().then((markers) => {
 
       for (var mark of markers) {
@@ -91,9 +91,9 @@ export class HomePage {
         }
 
         var d = new Date(mark.create_date),
-          date = [d.getMonth() + 1,
-            d.getDate(),
-            d.getFullYear()].join('/') + '    ' +
+          date = [ d.getDate(),
+          d.getMonth() + 1,
+          d.getFullYear()].join('/') + '    ' +
             [d.getHours(),
               d.getMinutes()].join(':');
 
@@ -129,8 +129,8 @@ export class HomePage {
 
       }
 
-      console.log('markers pronto' );
-      console.log(this.markers);
+      // console.log('markers pronto' );
+      // console.log(this.markers);
       var markerCluster = new MarkerClusterer(this.mapHome, this.markers, { imagePath: 'img/m/m' });
    
   });

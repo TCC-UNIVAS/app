@@ -50,19 +50,19 @@ export class MapsPage implements OnInit {
     }
 
     loadPosition() {
-        setTimeout(() => {
-             new Promise((resolve, reject) => {
-                let myLocation = { lat: -22.2262223, lng: -45.9316904 };
-                this.creatMap(myLocation);
-            });
-    //    Geolocation.getCurrentPosition().then((position) => {
-    //         this.myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-    //         this.creatMap(this.myLocation);
-    //     }, (err) => {
-    //         console.log(err);
-    // });
+        // setTimeout(() => {
+    //   new Promise((resolve, reject) => {
+    //     let myLocation = { lat: -22.2262223, lng: -45.9316904 };
+    //     this.createMap(myLocation);
+    //   });
+         Geolocation.getCurrentPosition().then(result => {
+               let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
+              this.createMap(myLocation);
+          }, (err) => {
+              console.log(err);
+      });
 
-        }, 200);
+    // }, 200);
     }   
 
     creatMap(myLocation) {
