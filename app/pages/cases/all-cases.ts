@@ -46,7 +46,7 @@ export class AllCasesPage {
     };
     this.mapAllCases = new google.maps.Map(document.getElementById('mapAllCases'), mapOptions);
     this.mapAllCases.controls[google.maps.ControlPosition.RIGHT_TOP].push(
-    document.getElementById('legend'));
+    document.getElementById('legend-all-cases'));
     this.loadMarkers();
   }
 

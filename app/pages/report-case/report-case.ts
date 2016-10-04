@@ -47,7 +47,9 @@ export class ReportCasePage {
 
   saveCase(data) {    
       this.presentLoading(true, 'Salvando caso...');
-      let result = this.reportCase.saveInBD(data, this.eraseFields);      
+      let result = this.reportCase.saveInBD(data, this.eraseFields);
+      //this.showAlert('Sucesso!', 'Notificação realizada com sucesso!');
+      
       //this.eraseFields();
     }
   
@@ -62,6 +64,10 @@ export class ReportCasePage {
       this.data.lng = response.latlng.lng;
       this.data.neighborhood = response.neighborhood;
     });
+  }
+
+  redirectMyCasePage(data) {
+    
   }
   
   showAlert(title, content) {
