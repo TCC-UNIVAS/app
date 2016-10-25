@@ -10,7 +10,7 @@ declare var MarkerClusterer: any;
 
 @Component({
   templateUrl: 'build/pages/home/home.html',
-  providers: [HomeService, PushService],
+  providers: [HomeService, PushService, DetailCasePage]
 })
 
 export class HomePage {

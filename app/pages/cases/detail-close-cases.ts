@@ -27,6 +27,7 @@ export class DetailCloseCasesPage {
       private casesService: CasesService)
     {
         this.case = navParams.get('caso');
+        console.log(this.case);
         this.user = this.getUserFromLocalstorage();
         this.initPage();
     }
