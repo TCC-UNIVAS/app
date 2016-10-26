@@ -5,6 +5,7 @@ import { MyCasesPage } from './my-cases';
 import { CloseCasesPage } from './close-cases';
 import { CasesService} from './cases.service';
 import { GraphsPage } from './graphs-cases';
+import { HeatMap } from './heatMap';
 
 @Component({
   templateUrl: 'build/pages/cases/cases.html',
@@ -41,23 +42,30 @@ export class CasesPage {
     });
   }
 
+  showHeatMap() {
+    this.presentLoading(true, 'Carregando...');
+    this.navCtrl.push(HeatMap).then(() => {
+      this.presentLoading(false, 'Carregando');
+    });
+  }
+
   commonDiseasesPage() {
-   // alert('In Progress...');
+    // alert('In Progress...');
     this.presentLoading(true, 'Carregando...');
     this.navCtrl.push(GraphsPage).then(() => {
       this.presentLoading(false, 'Carregando');
     });
   }
 
-   presentLoading(showLoading, message) {
-     if (showLoading) {
-        this.loading = this.loadingCtrl.create({
-            content: message,
-            dismissOnPageChange: false
-        });
-        this.loading.present();
-     } else {
-        this.loading.dismiss();
-     }
+  presentLoading(showLoading, message) {
+    if (showLoading) {
+      this.loading = this.loadingCtrl.create({
+        content: message,
+        dismissOnPageChange: false
+      });
+      this.loading.present();
+    } else {
+      this.loading.dismiss();
+    }
   }
 }

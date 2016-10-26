@@ -19,7 +19,7 @@ export class HomePage {
   private URL: string;
 
   constructor(private navCtrl: NavController, private homeService: HomeService, private pushService: PushService) {
-    this.pushService.init();
+    //this.pushService.init();
     this.markers = [];
     this.mapHome;
    // this.loadPosition();

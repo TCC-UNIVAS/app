@@ -1,23 +1,27 @@
 <ion-content class="cases">
-  <div style="width: 300px; height: 200px;"></div>
-  <ion-list>
-    
-  <ion-item (click)="myCasesPage()" class="div-list cases">
-    <br>
-    <ion-icon name="locate" item-left></ion-icon>
-      <h2>Meus casos</h2>
-  </ion-item>
-  <ion-item (click)="closeCasesPage()" class="div-list cases">
-    <ion-icon name="compass" item-left></ion-icon>
-      <h2>Casos próximos a minha casa</h2>
-  </ion-item>
-  <ion-item (click)="allCasesPage()" class="div-list cases">
-    <ion-icon name="pin" item-left></ion-icon>
-      <h2>Todos os casos</h2>
-  </ion-item>
-  <ion-item (click)="commonDiseasesPage()" class="div-list cases">
-    <ion-icon name="analytics" item-left></ion-icon>
-      <h2>Casos mais frequentes</h2>
-  </ion-item>
-</ion-list>
+	<div style="width: 100px; height: 100px;"></div>
+	<ion-list>
+
+		<ion-item (click)="myCasesPage()" class="div-list cases">
+			<br>
+			<ion-icon name="locate" item-left></ion-icon>
+			<h2>Meus casos</h2>
+		</ion-item>
+		<ion-item (click)="closeCasesPage()" class="div-list cases">
+			<ion-icon name="compass" item-left></ion-icon>
+			<h2>Casos próximos a minha casa</h2>
+		</ion-item>
+		<ion-item (click)="allCasesPage()" class="div-list cases">
+			<ion-icon name="pin" item-left></ion-icon>
+			<h2>Todos os casos</h2>
+		</ion-item>
+		<ion-item (click)="showHeatMap()" class="div-list cases">
+			<ion-icon name="pin" color="secundary" item-left></ion-icon>
+			<h2>Densidade dos casos</h2>
+		</ion-item>
+		<ion-item (click)="commonDiseasesPage()" class="div-list cases">
+			<ion-icon name="analytics" item-left></ion-icon>
+			<h2>Casos mais frequentes</h2>
+		</ion-item>
+	</ion-list>
 </ion-content>
