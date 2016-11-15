@@ -3,6 +3,7 @@ import {HomePage} from '../home/home';
 import {ReportCasePage} from '../report-case/report-case';
 import {CasesPage} from '../cases/cases';
 import {UserPage} from '../user/user';
+import {InfoPage} from '../info/info';
 
 @Component({
   templateUrl: 'build/pages/tabs/tabs.html'
@@ -12,6 +13,7 @@ export class TabsPage {
   private tabRootReportCase: any;
   private tabRootCases: any;
   private tabRootUser: any;
+  private tabRootInfo: any;
 
   constructor() {
     // this tells the tabs component which Pages
@@ -20,5 +22,6 @@ export class TabsPage {
     this.tabRootReportCase = ReportCasePage;
     this.tabRootCases = CasesPage;
     this.tabRootUser = UserPage;
+    this.tabRootInfo = InfoPage;
   }
 }
