@@ -48,7 +48,7 @@ export class HeatMap {
         });
         
         this.heatMap.set('radius',25);
-        //this.heatMap.set('dissipating', false);
+        this.heatMap.set('dissipating', true);
 
 
     }

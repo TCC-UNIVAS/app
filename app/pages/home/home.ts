@@ -19,7 +19,7 @@ export class HomePage {
   private URL: string;
 
   constructor(private navCtrl: NavController, private homeService: HomeService, private pushService: PushService) {
-    //this.pushService.init();
+    this.pushService.init();
     this.markers = [];
     this.mapHome;
    // this.loadPosition();
@@ -35,24 +35,17 @@ export class HomePage {
   }
   
   loadPosition() {
-    //setTimeout(() => {
-      // new Promise((resolve, reject) => {
-      //   let myLocation = { lat: -22.2262223, lng: -45.9316904 };
-      //   this.createMap(myLocation);
-      // });
          Geolocation.getCurrentPosition().then(result => {
                let myLocation = new google.maps.LatLng(result.coords.latitude, result.coords.longitude);
               this.createMap(myLocation);
           }, (err) => {
               console.log(err);
       });
-
-    //}, 200);
   }
 
   createMap(myLocation) {
     let mapOptions = {
-      zoom: 18,
+      zoom: 17,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       center: myLocation
     };

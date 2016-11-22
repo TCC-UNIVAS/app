@@ -26,4 +26,20 @@ export class GraphsService {
         console.info('An error occurred', error);
         return Promise.reject(error.message || error);
     }
+
+    // getDataTypeCases() {
+    //     var url = this.URL + '/graphs/typecases';
+    //     var headers = new Headers();
+    //     headers.append('Content-Type', 'application/json');
+    //     return this.http.get(url, { headers: headers })
+    //         .toPromise()
+    //         .then(response => response.json())
+    //         .catch(this.handleError);
+    // }
+
+
+    // handleError(error: any) {
+    //     console.info('An error occurred', error);
+    //     return Promise.reject(error.message || error);
+    // }
 }
